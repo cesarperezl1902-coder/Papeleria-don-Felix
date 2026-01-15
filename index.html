@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Félix: Tu Aliado en el Aula</title>
+    <style>
+        /* ===== ESTILOS GENERALES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== CONTENEDORES GENERALES ===== */
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px;
+            min-height: 600px;
+        }
+
+        /* ===== LOGO Y CABECERA ===== */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .school-name {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .school-subtitle {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        /* ===== PANTALLA DE SELECCIÓN DE ROL ===== */
+        .role-selection h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .role-subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .role-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.1);
+        }
+
+        .role-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .role-title {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .role-description {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FORMULARIOS DE LOGIN/REGISTRO ===== */
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ===== BOTONES ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn-secondary {
+            background: #edf2f7;
+            color: #4a5568;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            width: auto;
+        }
+
+        .btn-danger {
+            background: #f56565;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+            box-shadow: 0 10px 20px rgba(245, 101, 101, 0.2);
+        }
+
+        .btn-success {
+            background: #48bb78;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.2);
+        }
+
+        /* ===== PANTALLA PRINCIPAL ===== */
+        .main-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-welcome h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .user-role {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .balance-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .balance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .balance-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* ===== MENÚ DE NAVEGACIÓN ===== */
+        .nav-menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            flex: 1;
+            min-width: 120px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .nav-text {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        /* ===== SECCIONES DE CONTENIDO ===== */
+        .content-section {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .section-title {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== SECCIÓN DE ENVÍO DE ARCHIVOS ===== */
+        .upload-zone {
+            border: 3px dashed #cbd5e0;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-zone:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .print-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .print-option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .print-option:hover, .print-option.active {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        /* ===== SECCIÓN DE PEDIDOS ===== */
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .orders-table th {
+            background: #edf2f7;
+            padding: 12px 15px;
+            text-align: left;
+            color: #4a5568;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .orders-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-ready {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-completed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* ===== SECCIÓN DE GESTIÓN DE SALDOS (ADMIN) ===== */
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .user-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .user-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1rem;
+        }
+
+        .user-role-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .role-estudiante {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .role-docente {
+            background: #f0f9ff;
+            color: #0c4a6e;
+        }
+
+        .user-info {
+            margin-bottom: 15px;
+        }
+
+        .user-balance {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .recharge-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .recharge-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== SECCIÓN DE TODOS LOS PEDIDOS (ADMIN) ===== */
+        .admin-orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .admin-orders-table th {
+            background: #edf2f7;
+            padding: 10px 12px;
+            text-align: left;
+            color: #4a5568;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .admin-orders-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* ===== SECCIÓN DE AJUSTES ===== */
+        .settings-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .setting-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setting-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .setting-icon {
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        /* ===== TOGGLE SWITCH ===== */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #10b981;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        /* ===== BOTÓN DE CERRAR SESIÓN ===== */
+        .logout-btn {
+            background: #f56565;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #e53e3e;
+            box-shadow: 0 10px 20px rgba(245, 101, 101, 0.2);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .role-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .users-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== MENSAJES DE ERROR/ÉXITO ===== */
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 2px solid #a7f3d0;
+        }
+
+        .alert-error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 2px solid #fc8181;
+        }
+
+        /* ===== PAGINACIÓN ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            padding: 8px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ===== PANTALLA DE SELECCIÓN DE ROL ===== -->
+    <div id="roleScreen" class="container">
+        <div class="logo-section">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24'%3E%3Cpath fill='%23667eea' d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E" alt="Don Félix Logo" class="logo">
+            <h1 class="school-name">Don Félix: Tu Aliado en el Aula</h1>
+            <p class="school-subtitle">Escuela Preparatoria Oficial Anexa a la Normal de los Reyes Acaquilpan</p>
+        </div>
+        
+        <h1>SELECCIONA TU ROL</h1>
+        <p class="role-subtitle">Selecciona cómo deseas acceder al sistema</p>
+        
+        <div class="role-cards">
+            <div class="role-card" onclick="selectRole('estudiante')">
+                <div class="role-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="role-title">Estudiante</h3>
+                <p class="role-description">Enviar trabajos y consultar pedidos</p>
+            </div>
+            
+            <div class="role-card" onclick="selectRole('docente')">
+                <div class="role-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h3 class="role-title">Docente</h3>
+                <p class="role-description">Enviar materiales y revisar pedidos</p>
+            </div>
+            
+            <div class="role-card" onclick="selectRole('papeleria')">
+                <div class="role-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3 class="role-title">Papelería</h3>
+                <p class="role-description">Administrar pedidos y saldos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PANTALLA DE LOGIN ===== -->
+    <div id="loginScreen" class="container hidden">
+        <div class="logo-section">
+            <h1 class="school-name">Iniciar Sesión</h1>
+            <p class="school-subtitle" id="loginRoleText">Por favor, ingresa tus credenciales</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" class="form-control" placeholder="Ingresa tu usuario" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+                </div>
+                
+                <div id="loginAlert" class="alert alert-error"></div>
+                
+                <button type="submit" class="btn">Iniciar Sesión</button>
+                <button type="button" class="btn btn-secondary" onclick="showRegister()">Registrarse</button>
+                <button type="button" class="btn btn-secondary" onclick="goBackToRoles()">Volver</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== PANTALLA DE REGISTRO ===== -->
+    <div id="registerScreen" class="container hidden">
+        <div class="logo-section">
+            <h1 class="school-name">Registro</h1>
+            <p class="school-subtitle" id="registerRoleText">Completa tus datos para registrarte</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="regName">Nombre:</label>
+                        <input type="text" id="regName" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regLastName">Apellidos:</label>
+                        <input type="text" id="regLastName" class="form-control" placeholder="Apellidos" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">Correo electrónico:</label>
+                    <input type="email" id="regEmail" class="form-control" placeholder="correo@ejemplo.com" required>
+                </div>
+                
+                <div id="roleSpecificFields">
+                    <!-- Campos específicos según el rol -->
+                </div>
+                
+                <div class="form-group">
+                    <label for="regUsername">Usuario:</label>
+                    <input type="text" id="regUsername" class="form-control" placeholder="Crea un nombre de usuario" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="regPassword">Contraseña:</label>
+                        <input type="password" id="regPassword" class="form-control" placeholder="Crea una contraseña" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regConfirmPassword">Confirmar contraseña:</label>
+                        <input type="password" id="regConfirmPassword" class="form-control" placeholder="Repite la contraseña" required>
+                    </div>
+                </div>
+                
+                <div id="registerAlert" class="alert"></div>
+                
+                <button type="submit" class="btn">Registrarse</button>
+                <button type="button" class="btn btn-secondary" onclick="showLogin()">Volver al Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== PANTALLA PRINCIPAL ===== -->
+    <div id="mainScreen" class="container hidden">
+        <!-- Cabecera con información del usuario -->
+        <div class="main-header">
+            <div class="user-welcome">
+                <h2 id="welcomeMessage">Bienvenido, Usuario</h2>
+                <div class="user-role" id="userRoleDisplay">Rol: Estudiante</div>
+            </div>
+            
+            <div class="balance-display" id="balanceDisplay">
+                <div class="balance-label">SALDO DISPONIBLE</div>
+                <div class="balance-amount" id="userBalance">$0.00</div>
+            </div>
+        </div>
+        
+        <!-- Menú de navegación -->
+        <div class="nav-menu" id="navMenu">
+            <!-- Menú se generará dinámicamente según el rol -->
+        </div>
+        
+        <!-- Sección de Contenido Dinámico -->
+        <div id="contentArea">
+            <!-- Sección de Inicio -->
+            <div id="homeSection" class="content-section">
+                <h2 class="section-title"><i class="fas fa-home"></i> Bienvenido al Sistema</h2>
+                <p>Bienvenido a Don Félix: Tu Aliado en el Aula. Selecciona una opción del menú para comenzar.</p>
+                
+                <div style="margin-top: 20px;">
+                    <h3>Resumen rápido:</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                            <i class="fas fa-print" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                            <h4>Impresiones</h4>
+                            <p>Envía tus documentos para imprimir</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                            <i class="fas fa-history" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                            <h4>Historial</h4>
+                            <p>Revisa tus pedidos anteriores</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                            <i class="fas fa-cog" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                            <h4>Ajustes</h4>
+                            <p>Personaliza tu experiencia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ===== SECCIÓN PARA ESTUDIANTES Y DOCENTES ===== -->
+            
+            <!-- Sección de Envío de Archivos -->
+            <div id="uploadSection" class="content-section hidden">
+                <h2 class="section-title"><i class="fas fa-upload"></i> Enviar Archivo para Imprimir</h2>
+                
+                <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p><strong>Aquí se mostrará la imagen/archivo</strong></p>
+                    <p>Arrastra y suelta tu archivo aquí o haz clic para cargarlo</p>
+                    <p style="font-size: 0.9rem; color: #718096; margin-top: 10px;">Formatos aceptados: PDF, DOC, DOCX, JPG, PNG</p>
+                </div>
+                <input type="file" id="fileInput" style="display: none;" accept=".pdf,.doc,.docx,.jpg,.png">
+                
+                <div id="fileInfo" class="hidden" style="margin: 20px 0; padding: 15px; background: #d1fae5; border-radius: 8px;">
+                    <p><strong>Archivo seleccionado:</strong> <span id="fileName">archivo.pdf</span></p>
+                    <button class="btn btn-small" onclick="clearFile()" style="margin-top: 10px;">Eliminar archivo</button>
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0;">Tipo de Servicio</h3>
+                <div class="print-options">
+                    <div class="print-option active" onclick="selectPrintOption(this, 'impresion')">
+                        <i class="fas fa-print" style="font-size: 1.5rem; margin-bottom: 10px; color: #667eea;"></i>
+                        <p><strong>Impresión Normal</strong></p>
+                        <p style="font-size: 0.9rem; color: #718096;">Calidad estándar</p>
+                    </div>
+                    
+                    <div class="print-option" onclick="selectPrintOption(this, 'fotocopia')">
+                        <i class="fas fa-copy" style="font-size: 1.5rem; margin-bottom: 10px; color: #667eea;"></i>
+                        <p><strong>Fotocopia</strong></p>
+                        <p style="font-size: 0.9rem; color: #718096;">Copia simple</p>
+                    </div>
+                    
+                    <div class="print-option" onclick="selectPrintOption(this, 'escaner')">
+                        <i class="fas fa-scanner" style="font-size: 1.5rem; margin-bottom: 10px; color: #667eea;"></i>
+                        <p><strong>Escaneo</strong></p>
+                        <p style="font-size: 0.9rem; color: #718096;">Digitalización</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0;">Color de la Impresión</h3>
+                <div class="print-options">
+                    <div class="print-option active" onclick="selectColorOption(this, 'byn')">
+                        <div style="width: 30px; height: 30px; background: linear-gradient(to right, black 50%, white 50%); border-radius: 50%; margin: 0 auto 10px;"></div>
+                        <p><strong>Blanco y Negro</strong></p>
+                        <p style="font-size: 0.9rem; color: #718096;">$1.00 por página</p>
+                    </div>
+                    
+                    <div class="print-option" onclick="selectColorOption(this, 'color')">
+                        <div style="width: 30px; height: 30px; background: linear-gradient(45deg, #f00, #ff0, #0f0, #00f, #f0f); border-radius: 50%; margin: 0 auto 10px;"></div>
+                        <p><strong>Color</strong></p>
+                        <p style="font-size: 0.9rem; color: #718096;">$3.00 por página</p>
+                    </div>
+                </div>
+                
+                <div style="background: #edf2f7; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;">
+                    <h3>PRECIO ESTIMADO:</h3>
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #667eea; margin: 10px 0;" id="estimatedPrice">$0.00</div>
+                    <p style="color: #718096; font-size: 0.9rem;">El precio subirá o bajará dependiendo del archivo</p>
+                    <button class="btn" style="margin-top: 20px;" onclick="submitPrintOrder()">Enviar Pedido</button>
+                </div>
+            </div>
+            
+            <!-- Sección de Pedidos (para estudiantes/docentes) -->
+            <div id="ordersSection" class="content-section hidden">
+                <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Mis Pedidos</h2>
+                <p>Historial de todos tus pedidos realizados</p>
+                
+                <div style="overflow-x: auto; margin-top: 20px;">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>ID Pedido</th>
+                                <th>Archivo</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Color</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Los pedidos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                </div>
+            </div>
+            
+            <!-- ===== SECCIONES PARA ADMINISTRADOR (PAPELERÍA) ===== -->
+            
+            <!-- Sección de Todos los Pedidos (Admin) -->
+            <div id="adminOrdersSection" class="content-section hidden">
+                <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Gestión de Todos los Pedidos</h2>
+                <p>Administra todos los pedidos del sistema</p>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <input type="text" id="searchOrders" class="form-control" placeholder="Buscar por archivo o usuario..." style="flex: 1;">
+                    <button class="btn btn-small" onclick="searchOrders()">Buscar</button>
+                </div>
+                
+                <div style="overflow-x: auto; margin-top: 20px;">
+                    <table class="admin-orders-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Archivo</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Color</th>
+                                <th>Páginas</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminOrdersTableBody">
+                            <!-- Todos los pedidos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                </div>
+            </div>
+            
+            <!-- Sección de Gestión de Saldos (Admin) -->
+            <div id="adminBalanceSection" class="content-section hidden">
+                <h2 class="section-title"><i class="fas fa-wallet"></i> Gestión de Saldos</h2>
+                <p>Administra los saldos de todos los usuarios</p>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <input type="text" id="searchUsers" class="form-control" placeholder="Buscar por nombre o usuario..." style="flex: 1;">
+                    <button class="btn btn-small" onclick="searchUsers()">Buscar</button>
+                </div>
+                
+                <div class="users-grid" id="usersGrid">
+                    <!-- Los usuarios se cargarán dinámicamente -->
+                </div>
+            </div>
+            
+            <!-- ===== SECCIÓN COMÚN PARA TODOS ===== -->
+            
+            <!-- Sección de Ajustes -->
+            <div id="settingsSection" class="content-section hidden">
+                <h2 class="section-title"><i class="fas fa-cog"></i> Ajustes</h2>
+                
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-icon"><i class="fas fa-moon"></i></div>
+                            <div>
+                                <strong>Tema</strong>
+                                <div style="font-size: 0.9rem; color: #718096;">Cambiar entre tema claro y oscuro</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="themeToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-icon"><i class="fas fa-bell"></i></div>
+                            <div>
+                                <strong>Notificaciones</strong>
+                                <div style="font-size: 0.9rem; color: #718096;">Recibir notificaciones del sistema</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="notificationsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-icon"><i class="fas fa-wallet"></i></div>
+                            <div>
+                                <strong>Notificaciones de saldo bajo</strong>
+                                <div style="font-size: 0.9rem; color: #718096;">Alertar cuando el saldo sea menor a $20</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="lowBalanceToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-icon"><i class="fas fa-box"></i></div>
+                            <div>
+                                <strong>Notificaciones de pedido listo</strong>
+                                <div style="font-size: 0.9rem; color: #718096;">Alertar cuando un pedido esté listo</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="orderReadyToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== BASE DE DATOS EN LOCALSTORAGE =====
+        const DB = {
+            // Inicializar base de datos
+            init: function() {
+                // Si no existe la base de datos, inicializarla
+                if (!localStorage.getItem('donfelix_db')) {
+                    const defaultData = {
+                        users: [
+                            {
+                                id: 1,
+                                name: "Brandon Manuel",
+                                lastName: "Cruz Hernández",
+                                email: "brandon@ejemplo.com",
+                                username: "brandon",
+                                password: "123456",
+                                role: "estudiante",
+                                gradeGroup: "3°1",
+                                balance: 150.00,
+                                createdAt: new Date().toISOString()
+                            },
+                            {
+                                id: 2,
+                                name: "Ángela Violeta",
+                                lastName: "Ortiz Morales",
+                                email: "profesora@ejemplo.com",
+                                username: "profesora",
+                                password: "123456",
+                                role: "docente",
+                                department: "Sistemas de Información",
+                                balance: 500.00,
+                                createdAt: new Date().toISOString()
+                            },
+                            {
+                                id: 3,
+                                name: "Don Félix",
+                                lastName: "Papelería",
+                                email: "papeleria@ejemplo.com",
+                                username: "papeleria",
+                                password: "123456",
+                                role: "papeleria",
+                                storeName: "Papelería Félix 3°I",
+                                balance: 10000.00,
+                                createdAt: new Date().toISOString()
+                            }
+                        ],
+                        orders: [
+                            {
+                                id: 1,
+                                userId: 1,
+                                userName: "Brandon Manuel Cruz Hernández",
+                                fileName: "Tarea de historia.pdf",
+                                date: "2025-02-11",
+                                serviceType: "impresion",
+                                color: "color",
+                                pages: 5,
+                                price: 15.00,
+                                status: "ready",
+                                createdAt: new Date().toISOString()
+                            },
+                            {
+                                id: 2,
+                                userId: 1,
+                                userName: "Brandon Manuel Cruz Hernández",
+                                fileName: "Proyecto de matemáticas.docx",
+                                date: "2025-02-10",
+                                serviceType: "impresion",
+                                color: "byn",
+                                pages: 10,
+                                price: 10.00,
+                                status: "completed",
+                                createdAt: new Date().toISOString()
+                            },
+                            {
+                                id: 3,
+                                userId: 2,
+                                userName: "Ángela Violeta Ortiz Morales",
+                                fileName: "Calificaciones 3°1.xlsx",
+                                date: "2025-02-09",
+                                serviceType: "impresion",
+                                color: "color",
+                                pages: 3,
+                                price: 9.00,
+                                status: "pending",
+                                createdAt: new Date().toISOString()
+                            }
+                        ],
+                        transactions: [
+                            {
+                                id: 1,
+                                userId: 1,
+                                type: "recharge",
+                                amount: 100.00,
+                                description: "Recarga inicial",
+                                date: "2025-02-01",
+                                createdAt: new Date().toISOString()
+                            },
+                            {
+                                id: 2,
+                                userId: 1,
+                                type: "payment",
+                                amount: -15.00,
+                                description: "Pago por impresión Tarea de historia.pdf",
+                                date: "2025-02-11",
+                                createdAt: new Date().toISOString()
+                            }
+                        ]
+                    };
+                    localStorage.setItem('donfelix_db', JSON.stringify(defaultData));
+                }
+                
+                return JSON.parse(localStorage.getItem('donfelix_db'));
+            },
+            
+            // Obtener toda la base de datos
+            getDB: function() {
+                return JSON.parse(localStorage.getItem('donfelix_db'));
+            },
+            
+            // Guardar cambios en la base de datos
+            saveDB: function(data) {
+                localStorage.setItem('donfelix_db', JSON.stringify(data));
+            },
+            
+            // Obtener usuarios
+            getUsers: function() {
+                const db = this.getDB();
+                return db.users;
+            },
+            
+            // Buscar usuario por username
+            findUserByUsername: function(username) {
+                const users = this.getUsers();
+                return users.find(user => user.username === username);
+            },
+            
+            // Buscar usuario por ID
+            findUserById: function(userId) {
+                const users = this.getUsers();
+                return users.find(user => user.id === userId);
+            },
+            
+            // Agregar nuevo usuario
+            addUser: function(user) {
+                const db = this.getDB();
+                const newId = db.users.length > 0 ? Math.max(...db.users.map(u => u.id)) + 1 : 1;
+                
+                const newUser = {
+                    id: newId,
+                    ...user,
+                    balance: 0.00,
+                    createdAt: new Date().toISOString()
+                };
+                
+                db.users.push(newUser);
+                this.saveDB(db);
+                return newUser;
+            },
+            
+            // Actualizar usuario
+            updateUser: function(userId, updates) {
+                const db = this.getDB();
+                const userIndex = db.users.findIndex(user => user.id === userId);
+                
+                if (userIndex !== -1) {
+                    db.users[userIndex] = { ...db.users[userIndex], ...updates };
+                    this.saveDB(db);
+                    return db.users[userIndex];
+                }
+                
+                return null;
+            },
+            
+            // Recargar saldo a un usuario
+            rechargeUserBalance: function(userId, amount) {
+                const user = this.findUserById(userId);
+                if (!user) return null;
+                
+                const newBalance = user.balance + amount;
+                const updatedUser = this.updateUser(userId, { balance: newBalance });
+                
+                // Registrar la transacción
+                this.addTransaction({
+                    userId: userId,
+                    type: 'recharge',
+                    amount: amount,
+                    description: 'Recarga de saldo por administrador',
+                    date: new Date().toLocaleDateString()
+                });
+                
+                return updatedUser;
+            },
+            
+            // Obtener pedidos de un usuario
+            getUserOrders: function(userId) {
+                const db = this.getDB();
+                return db.orders.filter(order => order.userId === userId);
+            },
+            
+            // Obtener todos los pedidos
+            getAllOrders: function() {
+                const db = this.getDB();
+                return db.orders;
+            },
+            
+            // Actualizar estado de un pedido
+            updateOrderStatus: function(orderId, status) {
+                const db = this.getDB();
+                const orderIndex = db.orders.findIndex(order => order.id === orderId);
+                
+                if (orderIndex !== -1) {
+                    db.orders[orderIndex].status = status;
+                    this.saveDB(db);
+                    return db.orders[orderIndex];
+                }
+                
+                return null;
+            },
+            
+            // Agregar nuevo pedido
+            addOrder: function(order) {
+                const db = this.getDB();
+                const newId = db.orders.length > 0 ? Math.max(...db.orders.map(o => o.id)) + 1 : 1;
+                
+                // Obtener nombre del usuario
+                const user = this.findUserById(order.userId);
+                const userName = user ? `${user.name} ${user.lastName}` : 'Usuario desconocido';
+                
+                const newOrder = {
+                    id: newId,
+                    ...order,
+                    userName: userName,
+                    createdAt: new Date().toISOString()
+                };
+                
+                db.orders.push(newOrder);
+                this.saveDB(db);
+                return newOrder;
+            },
+            
+            // Agregar transacción
+            addTransaction: function(transaction) {
+                const db = this.getDB();
+                const newId = db.transactions.length > 0 ? Math.max(...db.transactions.map(t => t.id)) + 1 : 1;
+                
+                const newTransaction = {
+                    id: newId,
+                    ...transaction,
+                    createdAt: new Date().toISOString()
+                };
+                
+                db.transactions.push(newTransaction);
+                this.saveDB(db);
+                return newTransaction;
+            }
+        };
+
+        // ===== VARIABLES GLOBALES =====
+        let currentUser = null;
+        let selectedRole = null;
+        let currentFile = null;
+        let currentServiceType = "impresion";
+        let currentColorType = "byn";
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar base de datos
+            DB.init();
+            
+            // Verificar si hay usuario logueado (para persistencia)
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showMainScreen();
+            }
+            
+            // Configurar el selector de archivos
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+            
+            // Configurar formularios
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('registerForm').addEventListener('submit', handleRegister);
+            
+            // Mostrar pantalla de selección de rol por defecto
+            showRoleScreen();
+        });
+
+        // ===== MANEJO DE PANTALLAS =====
+        function showRoleScreen() {
+            document.getElementById('roleScreen').classList.remove('hidden');
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('mainScreen').classList.add('hidden');
+        }
+
+        function selectRole(role) {
+            selectedRole = role;
+            const roleText = role === 'estudiante' ? 'Estudiante' : 
+                           role === 'docente' ? 'Docente' : 'Papelería';
+            
+            document.getElementById('loginRoleText').textContent = `Iniciar sesión como ${roleText}`;
+            document.getElementById('registerRoleText').textContent = `Registro de ${roleText}`;
+            
+            showLoginScreen();
+        }
+
+        function showLoginScreen() {
+            document.getElementById('roleScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('mainScreen').classList.add('hidden');
+            
+            // Limpiar mensajes de error
+            document.getElementById('loginAlert').style.display = 'none';
+        }
+
+        function showRegisterScreen() {
+            document.getElementById('roleScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.remove('hidden');
+            document.getElementById('mainScreen').classList.add('hidden');
+            
+            // Limpiar mensajes de error
+            document.getElementById('registerAlert').style.display = 'none';
+            
+            // Generar campos específicos según el rol
+            const roleSpecificFields = document.getElementById('roleSpecificFields');
+            let html = '';
+            
+            if (selectedRole === 'estudiante') {
+                html = `
+                    <div class="form-group">
+                        <label for="regGradeGroup">Grado y Grupo:</label>
+                        <select id="regGradeGroup" class="form-control" required>
+                            <option value="">Selecciona...</option>
+                            <option value="3°1">3°1</option>
+                            <option value="3°2">3°2</option>
+                            <option value="3°3">3°3</option>
+                            <option value="3°4">3°4</option>
+                            <option value="3°5">3°5</option>
+                        </select>
+                    </div>
+                `;
+            } else if (selectedRole === 'docente') {
+                html = `
+                    <div class="form-group">
+                        <label for="regDepartment">Departamento/Asignatura:</label>
+                        <input type="text" id="regDepartment" class="form-control" placeholder="Ej: Sistemas de Información" required>
+                    </div>
+                `;
+            } else if (selectedRole === 'papeleria') {
+                html = `
+                    <div class="form-group">
+                        <label for="regStoreName">Nombre de la Papelería:</label>
+                        <input type="text" id="regStoreName" class="form-control" placeholder="Ej: Papelería Félix 3°I" required>
+                    </div>
+                `;
+            }
+            
+            roleSpecificFields.innerHTML = html;
+        }
+
+        function showMainScreen() {
+            document.getElementById('roleScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('mainScreen').classList.remove('hidden');
+            
+            // Actualizar información del usuario
+            if (currentUser) {
+                document.getElementById('welcomeMessage').textContent = `Bienvenido, ${currentUser.name}`;
+                document.getElementById('userRoleDisplay').textContent = `Rol: ${getRoleText(currentUser.role)}`;
+                
+                // Configurar menú según el rol
+                setupNavigationMenu();
+                
+                // Configurar visualización del saldo
+                if (currentUser.role === 'papeleria') {
+                    document.getElementById('balanceDisplay').style.display = 'none';
+                } else {
+                    document.getElementById('balanceDisplay').style.display = 'block';
+                    document.getElementById('userBalance').textContent = `$${currentUser.balance.toFixed(2)}`;
+                }
+                
+                // Mostrar sección de inicio por defecto
+                showSection('home');
+            }
+        }
+
+        function setupNavigationMenu() {
+            const navMenu = document.getElementById('navMenu');
+            let menuHTML = '';
+            
+            if (currentUser.role === 'estudiante' || currentUser.role === 'docente') {
+                // Menú para estudiantes y docentes
+                menuHTML = `
+                    <div class="nav-item active" onclick="showSection('home')">
+                        <div class="nav-icon"><i class="fas fa-home"></i></div>
+                        <div class="nav-text">Inicio</div>
+                    </div>
+                    
+                    <div class="nav-item" onclick="showSection('upload')">
+                        <div class="nav-icon"><i class="fas fa-upload"></i></div>
+                        <div class="nav-text">Enviar Archivo</div>
+                    </div>
+                    
+                    <div class="nav-item" onclick="showSection('orders')">
+                        <div class="nav-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="nav-text">Mis Pedidos</div>
+                    </div>
+                    
+                    <div class="nav-item" onclick="showSection('settings')">
+                        <div class="nav-icon"><i class="fas fa-cog"></i></div>
+                        <div class="nav-text">Ajustes</div>
+                    </div>
+                `;
+            } else if (currentUser.role === 'papeleria') {
+                // Menú para administrador (papelería)
+                menuHTML = `
+                    <div class="nav-item active" onclick="showSection('home')">
+                        <div class="nav-icon"><i class="fas fa-home"></i></div>
+                        <div class="nav-text">Inicio</div>
+                    </div>
+                    
+                    <div class="nav-item" onclick="showSection('adminOrders')">
+                        <div class="nav-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="nav-text">Todos los Pedidos</div>
+                    </div>
+                    
+                    <div class="nav-item" onclick="showSection('adminBalance')">
+                        <div class="nav-icon"><i class="fas fa-wallet"></i></div>
+                        <div class="nav-text">Gestionar Saldos</div>
+                    </div>
+                    
+                    <div class="nav-item" onclick="showSection('settings')">
+                        <div class="nav-icon"><i class="fas fa-cog"></i></div>
+                        <div class="nav-text">Ajustes</div>
+                    </div>
+                `;
+            }
+            
+            navMenu.innerHTML = menuHTML;
+        }
+
+        function goBackToRoles() {
+            selectedRole = null;
+            showRoleScreen();
+        }
+
+        function showLogin() {
+            showLoginScreen();
+        }
+
+        function showRegister() {
+            showRegisterScreen();
+        }
+
+        // ===== MANEJO DE FORMULARIOS =====
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Buscar usuario en la base de datos
+            const user = DB.findUserByUsername(username);
+            
+            if (!user) {
+                showAlert('loginAlert', 'Usuario no encontrado', 'error');
+                return;
+            }
+            
+            if (user.password !== password) {
+                showAlert('loginAlert', 'Contraseña incorrecta', 'error');
+                return;
+            }
+            
+            // Si se seleccionó un rol, verificar que coincida
+            if (selectedRole && user.role !== selectedRole) {
+                showAlert('loginAlert', `Este usuario no es un ${getRoleText(selectedRole)}`, 'error');
+                return;
+            }
+            
+            // Iniciar sesión exitosamente
+            currentUser = user;
+            
+            // Guardar usuario en localStorage para persistencia
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            
+            // Mostrar pantalla principal
+            showMainScreen();
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const lastName = document.getElementById('regLastName').value;
+            const email = document.getElementById('regEmail').value;
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            
+            // Validaciones
+            if (password !== confirmPassword) {
+                showAlert('registerAlert', 'Las contraseñas no coinciden', 'error');
+                return;
+            }
+            
+            // Verificar si el usuario ya existe
+            const existingUser = DB.findUserByUsername(username);
+            if (existingUser) {
+                showAlert('registerAlert', 'El nombre de usuario ya está en uso', 'error');
+                return;
+            }
+            
+            // Crear objeto usuario según el rol
+            let userData = {
+                name,
+                lastName,
+                email,
+                username,
+                password,
+                role: selectedRole
+            };
+            
+            // Agregar campos específicos según el rol
+            if (selectedRole === 'estudiante') {
+                userData.gradeGroup = document.getElementById('regGradeGroup').value;
+            } else if (selectedRole === 'docente') {
+                userData.department = document.getElementById('regDepartment').value;
+            } else if (selectedRole === 'papeleria') {
+                userData.storeName = document.getElementById('regStoreName').value;
+            }
+            
+            // Agregar usuario a la base de datos
+            const newUser = DB.addUser(userData);
+            
+            // Iniciar sesión automáticamente
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            // Mostrar mensaje de éxito
+            showAlert('registerAlert', '¡Registro exitoso! Se ha creado tu cuenta', 'success');
+            
+            // Esperar un momento y mostrar pantalla principal
+            setTimeout(() => {
+                showMainScreen();
+            }, 1500);
+        }
+
+        // ===== FUNCIONALIDADES PRINCIPALES =====
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId + 'Section').classList.remove('hidden');
+            
+            // Actualizar menú activo
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Encontrar y activar el elemento correspondiente en el menú
+            const menuItems = document.querySelectorAll('.nav-item');
+            for (let i = 0; i < menuItems.length; i++) {
+                if (menuItems[i].onclick && menuItems[i].onclick.toString().includes(sectionId)) {
+                    menuItems[i].classList.add('active');
+                    break;
+                }
+            }
+            
+            // Cargar datos específicos de cada sección
+            if (sectionId === 'orders') {
+                updateUserOrdersTable();
+            } else if (sectionId === 'adminOrders') {
+                updateAdminOrdersTable();
+            } else if (sectionId === 'adminBalance') {
+                updateUsersGrid();
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                currentFile = file;
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileInfo').classList.remove('hidden');
+                updateEstimatedPrice();
+            }
+        }
+
+        function clearFile() {
+            currentFile = null;
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileInfo').classList.add('hidden');
+            updateEstimatedPrice();
+        }
+
+        function selectPrintOption(element, serviceType) {
+            document.querySelectorAll('.print-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            currentServiceType = serviceType;
+            updateEstimatedPrice();
+        }
+
+        function selectColorOption(element, colorType) {
+            document.querySelectorAll('.print-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            element.classList.add('active');
+            currentColorType = colorType;
+            updateEstimatedPrice();
+        }
+
+        function updateEstimatedPrice() {
+            let price = 0;
+            
+            // Precio base según tipo de servicio
+            if (currentServiceType === 'impresion') {
+                price = currentColorType === 'byn' ? 1.00 : 3.00;
+            } else if (currentServiceType === 'fotocopia') {
+                price = currentColorType === 'byn' ? 0.50 : 2.00;
+            } else if (currentServiceType === 'escaner') {
+                price = currentColorType === 'byn' ? 0.25 : 1.50;
+            }
+            
+            // Si hay un archivo, simular páginas
+            if (currentFile) {
+                const simulatedPages = Math.max(1, Math.floor(currentFile.size / 10000)); // Simulación
+                price *= simulatedPages;
+            }
+            
+            document.getElementById('estimatedPrice').textContent = `$${price.toFixed(2)}`;
+            return price;
+        }
+
+        function submitPrintOrder() {
+            if (!currentFile) {
+                alert('Por favor, selecciona un archivo primero');
+                return;
+            }
+            
+            const price = updateEstimatedPrice();
+            
+            // Verificar saldo suficiente (solo para estudiantes y docentes)
+            if (currentUser.balance < price) {
+                alert('Saldo insuficiente. Por favor, acude con Don Félix para recargar tu saldo.');
+                return;
+            }
+            
+            // Crear pedido
+            const order = {
+                userId: currentUser.id,
+                fileName: currentFile.name,
+                date: new Date().toLocaleDateString(),
+                serviceType: currentServiceType,
+                color: currentColorType,
+                pages: Math.max(1, Math.floor(currentFile.size / 10000)),
+                price: price,
+                status: 'pending'
+            };
+            
+            // Agregar a la base de datos
+            DB.addOrder(order);
+            
+            // Actualizar saldo del usuario (solo para estudiantes y docentes)
+            currentUser.balance -= price;
+            DB.updateUser(currentUser.id, { balance: currentUser.balance });
+            
+            // Agregar transacción
+            DB.addTransaction({
+                userId: currentUser.id,
+                type: 'payment',
+                amount: -price,
+                description: `Pago por ${currentServiceType} de ${currentFile.name}`,
+                date: new Date().toLocaleDateString()
+            });
+            
+            // Actualizar localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Actualizar interfaz
+            document.getElementById('userBalance').textContent = `$${currentUser.balance.toFixed(2)}`;
+            updateUserOrdersTable();
+            
+            // Limpiar formulario
+            clearFile();
+            
+            // Mostrar mensaje de éxito
+            alert(`¡Pedido enviado exitosamente! Se han descontado $${price.toFixed(2)} de tu saldo.`);
+            
+            // Mostrar sección de pedidos
+            showSection('orders');
+        }
+
+        // ===== FUNCIONES PARA ESTUDIANTES Y DOCENTES =====
+        function updateUserOrdersTable() {
+            if (!currentUser) return;
+            
+            const orders = DB.getUserOrders(currentUser.id);
+            const tableBody = document.getElementById('ordersTableBody');
+            
+            if (orders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px;">
+                            <p style="color: #718096;">No tienes pedidos realizados aún</p>
+                            <button class="btn btn-small" onclick="showSection('upload')" style="margin-top: 10px;">
+                                <i class="fas fa-plus"></i> Crear primer pedido
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            orders.forEach(order => {
+                const statusText = order.status === 'pending' ? 'Pendiente' : 
+                                 order.status === 'ready' ? 'Listo' : 'Completado';
+                const statusClass = order.status === 'pending' ? 'status-pending' : 
+                                  order.status === 'ready' ? 'status-ready' : 'status-completed';
+                const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
+                                  order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
+                const colorText = order.color === 'byn' ? 'Blanco/Negro' : 'Color';
+                
+                html += `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.fileName}</td>
+                        <td>${order.date}</td>
+                        <td>${serviceText}</td>
+                        <td>${colorText}</td>
+                        <td>$${order.price.toFixed(2)}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        // ===== FUNCIONES PARA ADMINISTRADOR =====
+        function updateAdminOrdersTable() {
+            const orders = DB.getAllOrders();
+            const tableBody = document.getElementById('adminOrdersTableBody');
+            
+            if (orders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" style="text-align: center; padding: 40px;">
+                            <p style="color: #718096;">No hay pedidos en el sistema</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            orders.forEach(order => {
+                const statusText = order.status === 'pending' ? 'Pendiente' : 
+                                 order.status === 'ready' ? 'Listo' : 'Completado';
+                const statusClass = order.status === 'pending' ? 'status-pending' : 
+                                  order.status === 'ready' ? 'status-ready' : 'status-completed';
+                const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
+                                  order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
+                const colorText = order.color === 'byn' ? 'Blanco/Negro' : 'Color';
+                
+                html += `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.userName}</td>
+                        <td>${order.fileName}</td>
+                        <td>${order.date}</td>
+                        <td>${serviceText}</td>
+                        <td>${colorText}</td>
+                        <td>${order.pages}</td>
+                        <td>$${order.price.toFixed(2)}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td class="action-buttons">
+                            ${order.status === 'pending' ? 
+                                `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'ready')">Marcar como Listo</button>` : 
+                                order.status === 'ready' ?
+                                `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Completar</button>` :
+                                ''
+                            }
+                            <button class="btn-small btn-danger" onclick="deleteOrder(${order.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        function updateUsersGrid() {
+            const users = DB.getUsers().filter(user => user.role !== 'papeleria'); // No mostrar administradores
+            const usersGrid = document.getElementById('usersGrid');
+            
+            if (users.length === 0) {
+                usersGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                        <p style="color: #718096;">No hay usuarios registrados</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            users.forEach(user => {
+                const roleClass = user.role === 'estudiante' ? 'role-estudiante' : 'role-docente';
+                const roleText = user.role === 'estudiante' ? 'Estudiante' : 'Docente';
+                const userInfo = user.role === 'estudiante' ? 
+                    `<div style="font-size: 0.9rem; color: #718096;">${user.gradeGroup}</div>` :
+                    `<div style="font-size: 0.9rem; color: #718096;">${user.department}</div>`;
+                
+                html += `
+                    <div class="user-card">
+                        <div class="user-header">
+                            <div class="user-name">${user.name} ${user.lastName}</div>
+                            <div class="user-role-badge ${roleClass}">${roleText}</div>
+                        </div>
+                        
+                        <div class="user-info">
+                            <div style="font-size: 0.9rem; color: #718096; margin-bottom: 5px;">@${user.username}</div>
+                            ${userInfo}
+                        </div>
+                        
+                        <div class="user-balance">Saldo: $${user.balance.toFixed(2)}</div>
+                        
+                        <div class="recharge-form">
+                            <input type="number" class="recharge-input" id="rechargeAmount_${user.id}" placeholder="Monto a recargar" min="1" step="0.01">
+                            <button class="btn-small btn-success" onclick="rechargeUserBalance(${user.id})">Recargar</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            usersGrid.innerHTML = html;
+        }
+
+        function updateOrderStatus(orderId, status) {
+            const order = DB.updateOrderStatus(orderId, status);
+            if (order) {
+                alert(`Pedido #${orderId} actualizado a: ${status === 'ready' ? 'Listo' : 'Completado'}`);
+                updateAdminOrdersTable();
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (confirm(`¿Estás seguro de eliminar el pedido #${orderId}?`)) {
+                const db = DB.getDB();
+                const orderIndex = db.orders.findIndex(order => order.id === orderId);
+                
+                if (orderIndex !== -1) {
+                    // Reembolsar el saldo si el pedido estaba pendiente
+                    const order = db.orders[orderIndex];
+                    if (order.status === 'pending') {
+                        const user = DB.findUserById(order.userId);
+                        if (user) {
+                            const newBalance = user.balance + order.price;
+                            DB.updateUser(user.id, { balance: newBalance });
+                        }
+                    }
+                    
+                    // Eliminar el pedido
+                    db.orders.splice(orderIndex, 1);
+                    DB.saveDB(db);
+                    
+                    alert(`Pedido #${orderId} eliminado exitosamente`);
+                    updateAdminOrdersTable();
+                }
+            }
+        }
+
+        function rechargeUserBalance(userId) {
+            const input = document.getElementById(`rechargeAmount_${userId}`);
+            const amount = parseFloat(input.value);
+            
+            if (!amount || amount <= 0) {
+                alert('Por favor, ingresa un monto válido mayor a 0');
+                return;
+            }
+            
+            if (confirm(`¿Recargar $${amount.toFixed(2)} al usuario?`)) {
+                const updatedUser = DB.rechargeUserBalance(userId, amount);
+                if (updatedUser) {
+                    alert(`Se ha recargado $${amount.toFixed(2)} al usuario. Nuevo saldo: $${updatedUser.balance.toFixed(2)}`);
+                    input.value = '';
+                    updateUsersGrid();
+                }
+            }
+        }
+
+        function searchOrders() {
+            const searchTerm = document.getElementById('searchOrders').value.toLowerCase();
+            const orders = DB.getAllOrders();
+            const filteredOrders = orders.filter(order => 
+                order.fileName.toLowerCase().includes(searchTerm) || 
+                order.userName.toLowerCase().includes(searchTerm)
+            );
+            
+            // Actualizar tabla con resultados filtrados
+            updateFilteredOrdersTable(filteredOrders);
+        }
+
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchUsers').value.toLowerCase();
+            const users = DB.getUsers().filter(user => user.role !== 'papeleria');
+            const filteredUsers = users.filter(user => 
+                user.name.toLowerCase().includes(searchTerm) || 
+                user.lastName.toLowerCase().includes(searchTerm) ||
+                user.username.toLowerCase().includes(searchTerm)
+            );
+            
+            // Actualizar grid con resultados filtrados
+            updateFilteredUsersGrid(filteredUsers);
+        }
+
+        function updateFilteredOrdersTable(orders) {
+            const tableBody = document.getElementById('adminOrdersTableBody');
+            
+            if (orders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" style="text-align: center; padding: 40px;">
+                            <p style="color: #718096;">No se encontraron pedidos</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            orders.forEach(order => {
+                const statusText = order.status === 'pending' ? 'Pendiente' : 
+                                 order.status === 'ready' ? 'Listo' : 'Completado';
+                const statusClass = order.status === 'pending' ? 'status-pending' : 
+                                  order.status === 'ready' ? 'status-ready' : 'status-completed';
+                const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
+                                  order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
+                const colorText = order.color === 'byn' ? 'Blanco/Negro' : 'Color';
+                
+                html += `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.userName}</td>
+                        <td>${order.fileName}</td>
+                        <td>${order.date}</td>
+                        <td>${serviceText}</td>
+                        <td>${colorText}</td>
+                        <td>${order.pages}</td>
+                        <td>$${order.price.toFixed(2)}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td class="action-buttons">
+                            ${order.status === 'pending' ? 
+                                `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'ready')">Marcar como Listo</button>` : 
+                                order.status === 'ready' ?
+                                `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Completar</button>` :
+                                ''
+                            }
+                            <button class="btn-small btn-danger" onclick="deleteOrder(${order.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        function updateFilteredUsersGrid(users) {
+            const usersGrid = document.getElementById('usersGrid');
+            
+            if (users.length === 0) {
+                usersGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                        <p style="color: #718096;">No se encontraron usuarios</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            users.forEach(user => {
+                const roleClass = user.role === 'estudiante' ? 'role-estudiante' : 'role-docente';
+                const roleText = user.role === 'estudiante' ? 'Estudiante' : 'Docente';
+                const userInfo = user.role === 'estudiante' ? 
+                    `<div style="font-size: 0.9rem; color: #718096;">${user.gradeGroup}</div>` :
+                    `<div style="font-size: 0.9rem; color: #718096;">${user.department}</div>`;
+                
+                html += `
+                    <div class="user-card">
+                        <div class="user-header">
+                            <div class="user-name">${user.name} ${user.lastName}</div>
+                            <div class="user-role-badge ${roleClass}">${roleText}</div>
+                        </div>
+                        
+                        <div class="user-info">
+                            <div style="font-size: 0.9rem; color: #718096; margin-bottom: 5px;">@${user.username}</div>
+                            ${userInfo}
+                        </div>
+                        
+                        <div class="user-balance">Saldo: $${user.balance.toFixed(2)}</div>
+                        
+                        <div class="recharge-form">
+                            <input type="number" class="recharge-input" id="rechargeAmount_${user.id}" placeholder="Monto a recargar" min="1" step="0.01">
+                            <button class="btn-small btn-success" onclick="rechargeUserBalance(${user.id})">Recargar</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            usersGrid.innerHTML = html;
+        }
+
+        function logout() {
+            // Cerrar sesión
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            
+            // Regresar a pantalla de selección de rol
+            selectedRole = null;
+            showRoleScreen();
+        }
+
+        // ===== FUNCIONES AUXILIARES =====
+        function showAlert(elementId, message, type) {
+            const alertElement = document.getElementById(elementId);
+            alertElement.textContent = message;
+            alertElement.className = `alert alert-${type}`;
+            alertElement.style.display = 'block';
+            
+            // Ocultar después de 5 segundos
+            setTimeout(() => {
+                alertElement.style.display = 'none';
+            }, 5000);
+        }
+
+        function getRoleText(role) {
+            switch(role) {
+                case 'estudiante': return 'Estudiante';
+                case 'docente': return 'Docente';
+                case 'papeleria': return 'Papelería';
+                default: return 'Usuario';
+            }
+        }
+    </script>
+</body>
+</html>
