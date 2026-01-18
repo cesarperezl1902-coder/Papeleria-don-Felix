@@ -23,7 +23,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ===== TEMA OSCURO ===== */
         body.dark-theme {
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: #e2e8f0;
@@ -882,6 +881,23 @@
             border-color: #c53030;
         }
 
+        /* ===== INDICADOR DE CARGA ===== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* ===== PAGINACIÓN ===== */
         .pagination {
             display: flex;
@@ -973,7 +989,10 @@
                 
                 <div id="loginAlert" class="alert alert-error"></div>
                 
-                <button type="submit" class="btn">Iniciar Sesión</button>
+                <button type="submit" class="btn" id="loginButton">
+                    <span id="loginButtonText">Iniciar Sesión</span>
+                    <span id="loginLoading" class="loading hidden"></span>
+                </button>
                 <button type="button" class="btn btn-secondary" onclick="showRegister()">Registrarse</button>
                 <button type="button" class="btn btn-secondary" onclick="goBackToRoles()">Volver</button>
             </form>
@@ -1029,7 +1048,10 @@
                 
                 <div id="registerAlert" class="alert"></div>
                 
-                <button type="submit" class="btn">Registrarse</button>
+                <button type="submit" class="btn" id="registerButton">
+                    <span id="registerButtonText">Registrarse</span>
+                    <span id="registerLoading" class="loading hidden"></span>
+                </button>
                 <button type="button" class="btn btn-secondary" onclick="showLogin()">Volver al Login</button>
             </form>
         </div>
@@ -1065,17 +1087,17 @@
                 <div style="margin-top: 20px;">
                     <h3>Resumen rápido:</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;" class="dark-bg">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
                             <i class="fas fa-print" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
                             <h4>Impresiones</h4>
                             <p>Envía tus documentos para imprimir</p>
                         </div>
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;" class="dark-bg">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
                             <i class="fas fa-history" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
                             <h4>Historial</h4>
                             <p>Revisa tus pedidos anteriores</p>
                         </div>
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;" class="dark-bg">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
                             <i class="fas fa-cog" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
                             <h4>Ajustes</h4>
                             <p>Personaliza tu experiencia</p>
@@ -1109,7 +1131,7 @@
                 </div>
                 
                 <!-- Información del archivo -->
-                <div id="fileInfo" class="hidden" style="margin: 20px 0; padding: 15px; background: #d1fae5; border-radius: 8px;" class="dark-bg">
+                <div id="fileInfo" class="hidden" style="margin: 20px 0; padding: 15px; background: #d1fae5; border-radius: 8px;">
                     <p><strong>Archivo seleccionado:</strong> <span id="fileName">archivo.pdf</span></p>
                     <p><strong>Tamaño:</strong> <span id="fileSize">0 KB</span></p>
                     <p><strong>Tipo:</strong> <span id="fileType">PDF</span></p>
@@ -1157,7 +1179,7 @@
                     </div>
                 </div>
                 
-                <div style="background: #edf2f7; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;" class="dark-bg">
+                <div style="background: #edf2f7; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;">
                     <h3>PRECIO ESTIMADO:</h3>
                     <div style="font-size: 2.5rem; font-weight: bold; color: #667eea; margin: 10px 0;" id="estimatedPrice">$0.00</div>
                     <p style="color: #718096; font-size: 0.9rem;">El precio se calcula en base al tipo de servicio y número de páginas</p>
@@ -1330,278 +1352,422 @@
         </div>
     </div>
 
+    <!-- ===== MODAL DE INFORMACIÓN ===== -->
+    <div id="infoModal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+        <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Base de Datos Compartida</h2>
+            <p>Para que todos los dispositivos compartan la misma información, necesitas configurar una base de datos en la nube.</p>
+            
+            <div style="margin: 20px 0; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                <h3 style="color: #0369a1; margin-bottom: 10px;">Pasos para configurar:</h3>
+                <ol style="margin-left: 20px;">
+                    <li>Ve a <a href="https://jsonbin.io" target="_blank">jsonbin.io</a></li>
+                    <li>Regístrate (es gratis)</li>
+                    <li>Crea un nuevo "Bin"</li>
+                    <li>Copia el "Bin ID"</li>
+                    <li>Pégalo en el campo de abajo</li>
+                </ol>
+            </div>
+            
+            <div class="form-group">
+                <label for="jsonbinId">Bin ID de JSONBin.io:</label>
+                <input type="text" id="jsonbinId" class="form-control" placeholder="Ej: 1234567890abcdef">
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="saveJsonBinId()">Guardar</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Usar demo (solo pruebas)</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ===== BASE DE DATOS COMPARTIDA EN LOCALSTORAGE =====
+        // ===== CONFIGURACIÓN DE BASE DE DATOS COMPARTIDA =====
+        let DB_CONFIG = {
+            binId: localStorage.getItem('donfelix_jsonbin_id') || '',
+            apiKey: '$2a$10$dkhB15ocAgX.eYllsd7djuTzuGLMMnJoHfxrt98FFkeknN2buHI3u', // Esta es una API key de ejemplo
+            isDemo: false,
+            demoData: null
+        };
+
+        // URL base para JSONBin.io
+        const JSONBIN_BASE_URL = 'https://api.jsonbin.io/v3/b';
+
+        // ===== BASE DE DATOS COMPARTIDA (JSONBin.io) =====
         const DB = {
-            // Inicializar base de datos compartida
-            init: function() {
-                // Si no existe la base de datos, inicializarla
-                if (!localStorage.getItem('donfelix_db')) {
-                    const defaultData = {
-                        users: [
-                            {
-                                id: 1,
-                                name: "Brandon Manuel",
-                                lastName: "Cruz Hernández",
-                                email: "brandon@ejemplo.com",
-                                username: "brandon",
-                                password: "123456",
-                                role: "estudiante",
-                                gradeGroup: "3°1",
-                                balance: 150.00,
-                                createdAt: new Date().toISOString()
-                            },
-                            {
-                                id: 2,
-                                name: "Ángela Violeta",
-                                lastName: "Ortiz Morales",
-                                email: "profesora@ejemplo.com",
-                                username: "profesora",
-                                password: "123456",
-                                role: "docente",
-                                department: "Sistemas de Información",
-                                balance: 500.00,
-                                createdAt: new Date().toISOString()
-                            },
-                            {
-                                id: 3,
-                                name: "Don Félix",
-                                lastName: "Papelería",
-                                email: "papeleria@ejemplo.com",
-                                username: "papeleria",
-                                password: "123456",
-                                role: "papeleria",
-                                storeName: "Papelería Félix 3°I",
-                                balance: 10000.00,
-                                createdAt: new Date().toISOString()
-                            }
-                        ],
-                        orders: [
-                            {
-                                id: 1,
-                                userId: 1,
-                                userName: "Brandon Manuel Cruz Hernández",
-                                fileName: "Tarea de historia.pdf",
-                                date: "2025-02-11",
-                                serviceType: "impresion",
-                                color: "color",
-                                pages: 5,
-                                price: 10.00,
-                                status: "ready",
-                                createdAt: new Date().toISOString()
-                            },
-                            {
-                                id: 2,
-                                userId: 1,
-                                userName: "Brandon Manuel Cruz Hernández",
-                                fileName: "Proyecto de matemáticas.docx",
-                                date: "2025-02-10",
-                                serviceType: "impresion",
-                                color: "byn",
-                                pages: 10,
-                                price: 20.00,
-                                status: "completed",
-                                createdAt: new Date().toISOString()
-                            },
-                            {
-                                id: 3,
-                                userId: 2,
-                                userName: "Ángela Violeta Ortiz Morales",
-                                fileName: "Calificaciones 3°1.xlsx",
-                                date: "2025-02-09",
-                                serviceType: "fotocopia",
-                                color: "color",
-                                pages: 3,
-                                price: 3.00,
-                                status: "pending",
-                                createdAt: new Date().toISOString()
-                            }
-                        ],
-                        transactions: [
-                            {
-                                id: 1,
-                                userId: 1,
-                                type: "recharge",
-                                amount: 100.00,
-                                description: "Recarga inicial",
-                                date: "2025-02-01",
-                                createdAt: new Date().toISOString()
-                            },
-                            {
-                                id: 2,
-                                userId: 1,
-                                type: "payment",
-                                amount: -10.00,
-                                description: "Pago por impresión Tarea de historia.pdf",
-                                date: "2025-02-11",
-                                createdAt: new Date().toISOString()
-                            }
-                        ]
+            // Obtener URL completa
+            getUrl() {
+                if (DB_CONFIG.binId) {
+                    return `${JSONBIN_BASE_URL}/${DB_CONFIG.binId}`;
+                } else {
+                    return `${JSONBIN_BASE_URL}/65f1a3c71f5677401f1b2345`; // URL de demo
+                }
+            },
+
+            // Obtener headers para las solicitudes
+            getHeaders() {
+                return {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': DB_CONFIG.apiKey,
+                    'X-Bin-Meta': 'false'
+                };
+            },
+
+            // Cargar datos desde la base de datos compartida
+            async load() {
+                try {
+                    console.log('Cargando datos desde:', this.getUrl());
+                    const response = await fetch(this.getUrl(), {
+                        headers: this.getHeaders()
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Si no hay datos, devolver estructura vacía
+                    if (!data || Object.keys(data).length === 0) {
+                        return this.getDefaultData();
+                    }
+                    
+                    // Asegurarse de que todos los arrays existan
+                    return {
+                        users: data.users || [],
+                        orders: data.orders || [],
+                        transactions: data.transactions || []
                     };
-                    localStorage.setItem('donfelix_db', JSON.stringify(defaultData));
+                    
+                } catch (error) {
+                    console.error('Error al cargar datos:', error);
+                    
+                    // Si hay error, intentar cargar datos de demo
+                    if (!DB_CONFIG.isDemo) {
+                        DB_CONFIG.isDemo = true;
+                        return this.getDefaultData();
+                    }
+                    
+                    throw error;
+                }
+            },
+
+            // Guardar datos en la base de datos compartida
+            async save(data) {
+                try {
+                    console.log('Guardando datos en:', this.getUrl());
+                    const response = await fetch(this.getUrl(), {
+                        method: 'PUT',
+                        headers: this.getHeaders(),
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    console.log('Datos guardados exitosamente:', result);
+                    return result;
+                    
+                } catch (error) {
+                    console.error('Error al guardar datos:', error);
+                    
+                    // Si falla, guardar en modo demo (local)
+                    if (!DB_CONFIG.isDemo) {
+                        DB_CONFIG.isDemo = true;
+                        DB_CONFIG.demoData = data;
+                        localStorage.setItem('donfelix_demo_data', JSON.stringify(data));
+                        console.log('Datos guardados en modo demo (local)');
+                    }
+                    
+                    throw error;
+                }
+            },
+
+            // Datos por defecto
+            getDefaultData() {
+                return {
+                    users: [
+                        {
+                            id: 1,
+                            name: "Brandon Manuel",
+                            lastName: "Cruz Hernández",
+                            email: "brandon@ejemplo.com",
+                            username: "brandon",
+                            password: "123456",
+                            role: "estudiante",
+                            gradeGroup: "3°1",
+                            balance: 150.00,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 2,
+                            name: "Ángela Violeta",
+                            lastName: "Ortiz Morales",
+                            email: "profesora@ejemplo.com",
+                            username: "profesora",
+                            password: "123456",
+                            role: "docente",
+                            department: "Sistemas de Información",
+                            balance: 500.00,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 3,
+                            name: "Don Félix",
+                            lastName: "Papelería",
+                            email: "papeleria@ejemplo.com",
+                            username: "papeleria",
+                            password: "123456",
+                            role: "papeleria",
+                            storeName: "Papelería Félix 3°I",
+                            balance: 10000.00,
+                            createdAt: new Date().toISOString()
+                        }
+                    ],
+                    orders: [
+                        {
+                            id: 1,
+                            userId: 1,
+                            userName: "Brandon Manuel Cruz Hernández",
+                            fileName: "Tarea de historia.pdf",
+                            date: new Date().toLocaleDateString(),
+                            serviceType: "impresion",
+                            color: "color",
+                            pages: 5,
+                            price: 10.00,
+                            status: "ready",
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 2,
+                            userId: 1,
+                            userName: "Brandon Manuel Cruz Hernández",
+                            fileName: "Proyecto de matemáticas.docx",
+                            date: new Date().toLocaleDateString(),
+                            serviceType: "impresion",
+                            color: "byn",
+                            pages: 10,
+                            price: 20.00,
+                            status: "completed",
+                            createdAt: new Date().toISOString()
+                        }
+                    ],
+                    transactions: [
+                        {
+                            id: 1,
+                            userId: 1,
+                            type: "recharge",
+                            amount: 100.00,
+                            description: "Recarga inicial",
+                            date: new Date().toLocaleDateString(),
+                            createdAt: new Date().toISOString()
+                        }
+                    ]
+                };
+            },
+
+            // Inicializar base de datos
+            async init() {
+                console.log('Inicializando base de datos...');
+                
+                // Verificar si hay datos demo guardados localmente
+                const demoData = localStorage.getItem('donfelix_demo_data');
+                if (demoData) {
+                    DB_CONFIG.isDemo = true;
+                    DB_CONFIG.demoData = JSON.parse(demoData);
+                    console.log('Cargando datos demo desde localStorage');
+                    return DB_CONFIG.demoData;
                 }
                 
-                return JSON.parse(localStorage.getItem('donfelix_db'));
+                // Si no hay Bin ID configurado, mostrar modal
+                if (!DB_CONFIG.binId) {
+                    setTimeout(() => {
+                        showModal();
+                    }, 1000);
+                }
+                
+                // Cargar datos desde la nube
+                return await this.load();
             },
-            
-            // Obtener toda la base de datos
-            getDB: function() {
-                return JSON.parse(localStorage.getItem('donfelix_db'));
-            },
-            
-            // Guardar cambios en la base de datos compartida
-            saveDB: function(data) {
-                localStorage.setItem('donfelix_db', JSON.stringify(data));
-            },
-            
+
             // Obtener todos los usuarios
-            getUsers: function() {
-                const db = this.getDB();
-                return db.users;
+            async getUsers() {
+                if (DB_CONFIG.isDemo && DB_CONFIG.demoData) {
+                    return DB_CONFIG.demoData.users || [];
+                }
+                
+                const data = await this.load();
+                return data.users || [];
             },
-            
+
             // Buscar usuario por username
-            findUserByUsername: function(username) {
-                const users = this.getUsers();
+            async findUserByUsername(username) {
+                const users = await this.getUsers();
                 return users.find(user => user.username === username);
             },
-            
+
             // Buscar usuario por ID
-            findUserById: function(userId) {
-                const users = this.getUsers();
+            async findUserById(userId) {
+                const users = await this.getUsers();
                 return users.find(user => user.id === userId);
             },
-            
-            // Agregar nuevo usuario a la base de datos compartida
-            addUser: function(user) {
-                const db = this.getDB();
-                const newId = db.users.length > 0 ? Math.max(...db.users.map(u => u.id)) + 1 : 1;
+
+            // Agregar nuevo usuario
+            async addUser(userData) {
+                const data = await this.load();
+                const users = data.users || [];
+                
+                // Generar nuevo ID
+                const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
                 
                 const newUser = {
                     id: newId,
-                    ...user,
+                    ...userData,
                     balance: 0.00,
                     createdAt: new Date().toISOString()
                 };
                 
-                db.users.push(newUser);
-                this.saveDB(db);
+                users.push(newUser);
+                data.users = users;
+                
+                await this.save(data);
                 return newUser;
             },
-            
-            // Actualizar usuario en la base de datos compartida
-            updateUser: function(userId, updates) {
-                const db = this.getDB();
-                const userIndex = db.users.findIndex(user => user.id === userId);
+
+            // Actualizar usuario
+            async updateUser(userId, updates) {
+                const data = await this.load();
+                const userIndex = data.users.findIndex(user => user.id === userId);
                 
                 if (userIndex !== -1) {
-                    db.users[userIndex] = { ...db.users[userIndex], ...updates };
-                    this.saveDB(db);
-                    return db.users[userIndex];
+                    data.users[userIndex] = { ...data.users[userIndex], ...updates };
+                    await this.save(data);
+                    return data.users[userIndex];
                 }
                 
                 return null;
             },
-            
-            // Recargar saldo a un usuario
-            rechargeUserBalance: function(userId, amount) {
-                const user = this.findUserById(userId);
+
+            // Recargar saldo
+            async rechargeUserBalance(userId, amount) {
+                const user = await this.findUserById(userId);
                 if (!user) return null;
                 
                 const newBalance = user.balance + parseFloat(amount);
-                const updatedUser = this.updateUser(userId, { balance: newBalance });
+                const updatedUser = await this.updateUser(userId, { balance: newBalance });
                 
-                // Registrar la transacción
-                this.addTransaction({
+                // Registrar transacción
+                const data = await this.load();
+                const transactions = data.transactions || [];
+                const newTransactionId = transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
+                
+                transactions.push({
+                    id: newTransactionId,
                     userId: userId,
                     type: 'recharge',
                     amount: parseFloat(amount),
                     description: 'Recarga de saldo por administrador',
-                    date: new Date().toLocaleDateString()
+                    date: new Date().toLocaleDateString(),
+                    createdAt: new Date().toISOString()
                 });
+                
+                data.transactions = transactions;
+                await this.save(data);
                 
                 return updatedUser;
             },
-            
-            // Obtener pedidos de un usuario
-            getUserOrders: function(userId) {
-                const db = this.getDB();
-                return db.orders.filter(order => order.userId === userId);
+
+            // Obtener pedidos del usuario
+            async getUserOrders(userId) {
+                const data = await this.load();
+                const orders = data.orders || [];
+                return orders.filter(order => order.userId === userId);
             },
-            
+
             // Obtener todos los pedidos
-            getAllOrders: function() {
-                const db = this.getDB();
-                return db.orders;
+            async getAllOrders() {
+                const data = await this.load();
+                return data.orders || [];
             },
-            
-            // Actualizar estado de un pedido
-            updateOrderStatus: function(orderId, status) {
-                const db = this.getDB();
-                const orderIndex = db.orders.findIndex(order => order.id === orderId);
+
+            // Actualizar estado de pedido
+            async updateOrderStatus(orderId, status) {
+                const data = await this.load();
+                const orderIndex = data.orders.findIndex(order => order.id === orderId);
                 
                 if (orderIndex !== -1) {
-                    db.orders[orderIndex].status = status;
-                    this.saveDB(db);
-                    return db.orders[orderIndex];
+                    data.orders[orderIndex].status = status;
+                    await this.save(data);
+                    return data.orders[orderIndex];
                 }
                 
                 return null;
             },
-            
-            // Agregar nuevo pedido a la base de datos compartida
-            addOrder: function(order) {
-                const db = this.getDB();
-                const newId = db.orders.length > 0 ? Math.max(...db.orders.map(o => o.id)) + 1 : 1;
+
+            // Agregar pedido
+            async addOrder(orderData) {
+                const data = await this.load();
+                const orders = data.orders || [];
+                
+                // Generar nuevo ID
+                const newId = orders.length > 0 ? Math.max(...orders.map(o => o.id)) + 1 : 1;
                 
                 // Obtener nombre del usuario
-                const user = this.findUserById(order.userId);
+                const user = await this.findUserById(orderData.userId);
                 const userName = user ? `${user.name} ${user.lastName}` : 'Usuario desconocido';
                 
                 const newOrder = {
                     id: newId,
-                    ...order,
+                    ...orderData,
                     userName: userName,
                     createdAt: new Date().toISOString()
                 };
                 
-                db.orders.push(newOrder);
-                this.saveDB(db);
+                orders.push(newOrder);
+                data.orders = orders;
+                
+                await this.save(data);
                 return newOrder;
             },
-            
+
             // Agregar transacción
-            addTransaction: function(transaction) {
-                const db = this.getDB();
-                const newId = db.transactions.length > 0 ? Math.max(...db.transactions.map(t => t.id)) + 1 : 1;
+            async addTransaction(transactionData) {
+                const data = await this.load();
+                const transactions = data.transactions || [];
+                
+                // Generar nuevo ID
+                const newId = transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
                 
                 const newTransaction = {
                     id: newId,
-                    ...transaction,
+                    ...transactionData,
                     createdAt: new Date().toISOString()
                 };
                 
-                db.transactions.push(newTransaction);
-                this.saveDB(db);
+                transactions.push(newTransaction);
+                data.transactions = transactions;
+                
+                await this.save(data);
                 return newTransaction;
             },
-            
-            // Buscar usuarios por término
-            searchUsers: function(searchTerm) {
-                const users = this.getUsers();
+
+            // Buscar usuarios
+            async searchUsers(searchTerm) {
+                const users = await this.getUsers();
                 const lowerSearchTerm = searchTerm.toLowerCase();
                 
                 return users.filter(user => 
                     user.name.toLowerCase().includes(lowerSearchTerm) ||
                     user.lastName.toLowerCase().includes(lowerSearchTerm) ||
-                    user.username.toLowerCase().includes(lowerSearchTerm) ||
-                    user.email.toLowerCase().includes(lowerSearchTerm)
+                    user.username.toLowerCase().includes(lowerSearchTerm)
                 );
             },
-            
-            // Buscar pedidos por término
-            searchOrders: function(searchTerm) {
-                const orders = this.getAllOrders();
+
+            // Buscar pedidos
+            async searchOrders(searchTerm) {
+                const orders = await this.getAllOrders();
                 const lowerSearchTerm = searchTerm.toLowerCase();
                 
                 return orders.filter(order => 
@@ -1610,6 +1776,49 @@
                 );
             }
         };
+
+        // ===== FUNCIONES PARA MODAL =====
+        function showModal() {
+            document.getElementById('infoModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').classList.add('hidden');
+            DB_CONFIG.isDemo = true;
+        }
+
+        async function saveJsonBinId() {
+            const binId = document.getElementById('jsonbinId').value.trim();
+            
+            if (!binId) {
+                alert('Por favor, ingresa un Bin ID válido');
+                return;
+            }
+            
+            // Validar formato del Bin ID
+            if (!binId.match(/^[0-9a-f]{24}$/i)) {
+                alert('El Bin ID debe tener 24 caracteres hexadecimales');
+                return;
+            }
+            
+            DB_CONFIG.binId = binId;
+            DB_CONFIG.isDemo = false;
+            localStorage.setItem('donfelix_jsonbin_id', binId);
+            
+            // Probar la conexión
+            try {
+                const testData = await DB.load();
+                console.log('Conexión exitosa:', testData);
+                alert('¡Base de datos configurada exitosamente!');
+                closeModal();
+                
+                // Recargar la página para aplicar los cambios
+                location.reload();
+            } catch (error) {
+                alert('Error al conectar con la base de datos. Verifica el Bin ID.');
+                console.error('Error de conexión:', error);
+            }
+        }
 
         // ===== VARIABLES GLOBALES =====
         let currentUser = null;
@@ -1620,21 +1829,38 @@
         let currentPageCount = 1;
 
         // ===== INICIALIZACIÓN =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar base de datos compartida
-            DB.init();
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Inicializando sistema Don Félix...');
             
-            // Cargar tema guardado
-            loadTheme();
-            
-            // Verificar si hay usuario logueado (para persistencia)
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showMainScreen();
+            try {
+                // Inicializar base de datos compartida
+                await DB.init();
+                
+                // Cargar tema guardado
+                loadTheme();
+                
+                // Verificar si hay usuario logueado
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    showMainScreen();
+                }
+                
+                // Configurar eventos
+                setupEventListeners();
+                
+                // Mostrar pantalla de selección de rol por defecto
+                showRoleScreen();
+                
+            } catch (error) {
+                console.error('Error en inicialización:', error);
+                alert('Error al cargar el sistema. Por favor, recarga la página.');
             }
-            
-            // Configurar el selector de archivos
+        });
+
+        // ===== CONFIGURACIÓN DE EVENTOS =====
+        function setupEventListeners() {
+            // Configurar selector de archivos
             document.getElementById('fileInput').addEventListener('change', handleFileSelect);
             
             // Configurar cambio en número de páginas
@@ -1649,10 +1875,7 @@
             
             // Configurar tema toggle
             document.getElementById('themeToggle').addEventListener('change', toggleTheme);
-            
-            // Mostrar pantalla de selección de rol por defecto
-            showRoleScreen();
-        });
+        }
 
         // ===== FUNCIONALIDAD DE TEMA CLARO/OSCURO =====
         function loadTheme() {
@@ -1672,19 +1895,6 @@
                 document.body.classList.remove('dark-theme');
                 localStorage.setItem('donfelix_theme', 'light');
             }
-            
-            // Actualizar elementos con clase dark-bg
-            document.querySelectorAll('.dark-bg').forEach(el => {
-                if (themeToggle.checked) {
-                    el.style.background = '#4a5568';
-                    el.style.borderColor = '#718096';
-                    el.style.color = '#e2e8f0';
-                } else {
-                    el.style.background = '';
-                    el.style.borderColor = '';
-                    el.style.color = '';
-                }
-            });
         }
 
         // ===== MANEJO DE PANTALLAS =====
@@ -1735,11 +1945,28 @@
                         <label for="regGradeGroup">Grado y Grupo:</label>
                         <select id="regGradeGroup" class="form-control" required>
                             <option value="">Selecciona...</option>
+                            <option value="1°1">1°1</option>
+                            <option value="1°2">1°2</option>
+                            <option value="1°3">1°3</option>
+                            <option value="1°4">1°4</option>
+                            <option value="1°5">1°5</option>
+                            <option value="2°1">2°1</option>
+                            <option value="2°2">2°2</option>
+                            <option value="2°3">2°3</option>
+                            <option value="2°4">2°4</option>
+                            <option value="2°5">2°5</option>
                             <option value="3°1">3°1</option>
                             <option value="3°2">3°2</option>
                             <option value="3°3">3°3</option>
                             <option value="3°4">3°4</option>
                             <option value="3°5">3°5</option>
+                            <option value="3°6">3°6</option>
+                            <option value="3°7">3°7</option>
+                            <option value="3°8">3°8</option>
+                            <option value="3°9">3°9</option>
+                            <option value="3°10">3°10</option>
+                            <option value="3°11">3°11</option>
+                            <option value="3°12">3°12</option>
                         </select>
                     </div>
                 `;
@@ -1853,47 +2080,59 @@
             showLoginScreen();
         }
 
-        function showRegister() {
-            showRegisterScreen();
-        }
-
         // ===== MANEJO DE FORMULARIOS =====
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Buscar usuario en la base de datos compartida
-            const user = DB.findUserByUsername(username);
+            // Mostrar loading
+            document.getElementById('loginLoading').classList.remove('hidden');
+            document.getElementById('loginButtonText').textContent = 'Cargando...';
+            document.getElementById('loginButton').disabled = true;
             
-            if (!user) {
-                showAlert('loginAlert', 'Usuario no encontrado', 'error');
-                return;
+            try {
+                // Buscar usuario en la base de datos compartida
+                const user = await DB.findUserByUsername(username);
+                
+                if (!user) {
+                    showAlert('loginAlert', 'Usuario no encontrado', 'error');
+                    return;
+                }
+                
+                if (user.password !== password) {
+                    showAlert('loginAlert', 'Contraseña incorrecta', 'error');
+                    return;
+                }
+                
+                // Si se seleccionó un rol, verificar que coincida
+                if (selectedRole && user.role !== selectedRole) {
+                    showAlert('loginAlert', `Este usuario no es un ${getRoleText(selectedRole)}`, 'error');
+                    return;
+                }
+                
+                // Iniciar sesión exitosamente
+                currentUser = user;
+                
+                // Guardar usuario en localStorage para persistencia
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Mostrar pantalla principal
+                showMainScreen();
+                
+            } catch (error) {
+                console.error('Error en login:', error);
+                showAlert('loginAlert', 'Error al conectar con la base de datos', 'error');
+            } finally {
+                // Ocultar loading
+                document.getElementById('loginLoading').classList.add('hidden');
+                document.getElementById('loginButtonText').textContent = 'Iniciar Sesión';
+                document.getElementById('loginButton').disabled = false;
             }
-            
-            if (user.password !== password) {
-                showAlert('loginAlert', 'Contraseña incorrecta', 'error');
-                return;
-            }
-            
-            // Si se seleccionó un rol, verificar que coincida
-            if (selectedRole && user.role !== selectedRole) {
-                showAlert('loginAlert', `Este usuario no es un ${getRoleText(selectedRole)}`, 'error');
-                return;
-            }
-            
-            // Iniciar sesión exitosamente
-            currentUser = user;
-            
-            // Guardar usuario en localStorage para persistencia
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            
-            // Mostrar pantalla principal
-            showMainScreen();
         }
 
-        function handleRegister(e) {
+        async function handleRegister(e) {
             e.preventDefault();
             
             const name = document.getElementById('regName').value;
@@ -1903,52 +2142,68 @@
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
             
-            // Validaciones
-            if (password !== confirmPassword) {
-                showAlert('registerAlert', 'Las contraseñas no coinciden', 'error');
-                return;
+            // Mostrar loading
+            document.getElementById('registerLoading').classList.remove('hidden');
+            document.getElementById('registerButtonText').textContent = 'Registrando...';
+            document.getElementById('registerButton').disabled = true;
+            
+            try {
+                // Validaciones
+                if (password !== confirmPassword) {
+                    showAlert('registerAlert', 'Las contraseñas no coinciden', 'error');
+                    return;
+                }
+                
+                // Verificar si el usuario ya existe en la base de datos compartida
+                const existingUser = await DB.findUserByUsername(username);
+                if (existingUser) {
+                    showAlert('registerAlert', 'El nombre de usuario ya está en uso', 'error');
+                    return;
+                }
+                
+                // Crear objeto usuario según el rol
+                let userData = {
+                    name,
+                    lastName,
+                    email,
+                    username,
+                    password,
+                    role: selectedRole
+                };
+                
+                // Agregar campos específicos según el rol
+                if (selectedRole === 'estudiante') {
+                    userData.gradeGroup = document.getElementById('regGradeGroup').value;
+                } else if (selectedRole === 'docente') {
+                    userData.department = document.getElementById('regDepartment').value;
+                } else if (selectedRole === 'papeleria') {
+                    userData.storeName = document.getElementById('regStoreName').value;
+                }
+                
+                // Agregar usuario a la base de datos compartida
+                const newUser = await DB.addUser(userData);
+                
+                // Iniciar sesión automáticamente
+                currentUser = newUser;
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                
+                // Mostrar mensaje de éxito
+                showAlert('registerAlert', '¡Registro exitoso! Se ha creado tu cuenta', 'success');
+                
+                // Esperar un momento y mostrar pantalla principal
+                setTimeout(() => {
+                    showMainScreen();
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error en registro:', error);
+                showAlert('registerAlert', 'Error al conectar con la base de datos', 'error');
+            } finally {
+                // Ocultar loading
+                document.getElementById('registerLoading').classList.add('hidden');
+                document.getElementById('registerButtonText').textContent = 'Registrarse';
+                document.getElementById('registerButton').disabled = false;
             }
-            
-            // Verificar si el usuario ya existe en la base de datos compartida
-            const existingUser = DB.findUserByUsername(username);
-            if (existingUser) {
-                showAlert('registerAlert', 'El nombre de usuario ya está en uso', 'error');
-                return;
-            }
-            
-            // Crear objeto usuario según el rol
-            let userData = {
-                name,
-                lastName,
-                email,
-                username,
-                password,
-                role: selectedRole
-            };
-            
-            // Agregar campos específicos según el rol
-            if (selectedRole === 'estudiante') {
-                userData.gradeGroup = document.getElementById('regGradeGroup').value;
-            } else if (selectedRole === 'docente') {
-                userData.department = document.getElementById('regDepartment').value;
-            } else if (selectedRole === 'papeleria') {
-                userData.storeName = document.getElementById('regStoreName').value;
-            }
-            
-            // Agregar usuario a la base de datos compartida
-            const newUser = DB.addUser(userData);
-            
-            // Iniciar sesión automáticamente
-            currentUser = newUser;
-            localStorage.setItem('currentUser', JSON.stringify(newUser));
-            
-            // Mostrar mensaje de éxito
-            showAlert('registerAlert', '¡Registro exitoso! Se ha creado tu cuenta', 'success');
-            
-            // Esperar un momento y mostrar pantalla principal
-            setTimeout(() => {
-                showMainScreen();
-            }, 1500);
         }
 
         // ===== FUNCIONALIDADES PRINCIPALES =====
@@ -2000,7 +2255,8 @@
                     `${fileSize.toFixed(2)} KB` : `${(fileSize / 1024).toFixed(2)} MB`;
                 
                 // Mostrar tipo de archivo
-                document.getElementById('fileType').textContent = file.type.split('/')[1].toUpperCase() || 'DESCONOCIDO';
+                const fileType = file.type.split('/')[1] ? file.type.split('/')[1].toUpperCase() : 'DESCONOCIDO';
+                document.getElementById('fileType').textContent = fileType;
                 
                 document.getElementById('fileInfo').classList.remove('hidden');
                 
@@ -2094,7 +2350,7 @@
             return totalPrice;
         }
 
-        function submitPrintOrder() {
+        async function submitPrintOrder() {
             if (!currentFile) {
                 alert('Por favor, selecciona un archivo primero');
                 return;
@@ -2109,229 +2365,258 @@
                 return;
             }
             
-            // Crear pedido
-            const order = {
-                userId: currentUser.id,
-                fileName: currentFile.name,
-                date: new Date().toLocaleDateString(),
-                serviceType: currentServiceType,
-                color: currentColorType,
-                pages: currentPageCount,
-                price: price,
-                status: 'pending'
-            };
-            
-            // Agregar a la base de datos compartida
-            DB.addOrder(order);
-            
-            // Actualizar saldo del usuario (solo para estudiantes y docentes)
-            currentUser.balance -= price;
-            DB.updateUser(currentUser.id, { balance: currentUser.balance });
-            
-            // Agregar transacción
-            DB.addTransaction({
-                userId: currentUser.id,
-                type: 'payment',
-                amount: -price,
-                description: `Pago por ${currentServiceType} de ${currentFile.name} (${currentPageCount} páginas)`,
-                date: new Date().toLocaleDateString()
-            });
-            
-            // Actualizar localStorage
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            // Actualizar interfaz
-            document.getElementById('userBalance').textContent = `$${currentUser.balance.toFixed(2)}`;
-            updateUserOrdersTable();
-            
-            // Limpiar formulario
-            clearFile();
-            
-            // Mostrar mensaje de éxito
-            alert(`¡Pedido enviado exitosamente! Se han descontado $${price.toFixed(2)} de tu saldo.`);
-            
-            // Mostrar sección de pedidos
-            showSection('orders');
+            try {
+                // Crear pedido
+                const order = {
+                    userId: currentUser.id,
+                    fileName: currentFile.name,
+                    date: new Date().toLocaleDateString(),
+                    serviceType: currentServiceType,
+                    color: currentColorType,
+                    pages: currentPageCount,
+                    price: price,
+                    status: 'pending'
+                };
+                
+                // Agregar a la base de datos compartida
+                await DB.addOrder(order);
+                
+                // Actualizar saldo del usuario (solo para estudiantes y docentes)
+                currentUser.balance -= price;
+                await DB.updateUser(currentUser.id, { balance: currentUser.balance });
+                
+                // Agregar transacción
+                await DB.addTransaction({
+                    userId: currentUser.id,
+                    type: 'payment',
+                    amount: -price,
+                    description: `Pago por ${currentServiceType} de ${currentFile.name} (${currentPageCount} páginas)`,
+                    date: new Date().toLocaleDateString()
+                });
+                
+                // Actualizar localStorage
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Actualizar interfaz
+                document.getElementById('userBalance').textContent = `$${currentUser.balance.toFixed(2)}`;
+                updateUserOrdersTable();
+                
+                // Limpiar formulario
+                clearFile();
+                
+                // Mostrar mensaje de éxito
+                alert(`¡Pedido enviado exitosamente! Se han descontado $${price.toFixed(2)} de tu saldo.`);
+                
+                // Mostrar sección de pedidos
+                showSection('orders');
+                
+            } catch (error) {
+                console.error('Error al enviar pedido:', error);
+                alert('Error al enviar el pedido. Por favor, intenta nuevamente.');
+            }
         }
 
         // ===== FUNCIONES PARA ESTUDIANTES Y DOCENTES =====
-        function updateUserOrdersTable() {
+        async function updateUserOrdersTable() {
             if (!currentUser) return;
             
-            const orders = DB.getUserOrders(currentUser.id);
-            const tableBody = document.getElementById('ordersTableBody');
-            
-            if (orders.length === 0) {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px;">
-                            <p style="color: #718096;">No tienes pedidos realizados aún</p>
-                            <button class="btn btn-small" onclick="showSection('upload')" style="margin-top: 10px;">
-                                <i class="fas fa-plus"></i> Crear primer pedido
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            let html = '';
-            orders.forEach(order => {
-                const statusText = order.status === 'pending' ? 'Pendiente' : 
-                                 order.status === 'ready' ? 'Listo' : 'Completado';
-                const statusClass = order.status === 'pending' ? 'status-pending' : 
-                                  order.status === 'ready' ? 'status-ready' : 'status-completed';
-                const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
-                                  order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
+            try {
+                const orders = await DB.getUserOrders(currentUser.id);
+                const tableBody = document.getElementById('ordersTableBody');
                 
-                html += `
-                    <tr>
-                        <td>#${order.id}</td>
-                        <td>${order.fileName}</td>
-                        <td>${order.date}</td>
-                        <td>${serviceText}</td>
-                        <td>${order.pages}</td>
-                        <td>$${order.price.toFixed(2)}</td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
+                if (orders.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px;">
+                                <p style="color: #718096;">No tienes pedidos realizados aún</p>
+                                <button class="btn btn-small" onclick="showSection('upload')" style="margin-top: 10px;">
+                                    <i class="fas fa-plus"></i> Crear primer pedido
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                orders.forEach(order => {
+                    const statusText = order.status === 'pending' ? 'Pendiente' : 
+                                     order.status === 'ready' ? 'Listo' : 'Completado';
+                    const statusClass = order.status === 'pending' ? 'status-pending' : 
+                                      order.status === 'ready' ? 'status-ready' : 'status-completed';
+                    const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
+                                      order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
+                    
+                    html += `
+                        <tr>
+                            <td>#${order.id}</td>
+                            <td>${order.fileName}</td>
+                            <td>${order.date}</td>
+                            <td>${serviceText}</td>
+                            <td>${order.pages}</td>
+                            <td>$${order.price.toFixed(2)}</td>
+                            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        </tr>
+                    `;
+                });
+                
+                tableBody.innerHTML = html;
+            } catch (error) {
+                console.error('Error al cargar pedidos:', error);
+            }
         }
 
         // ===== FUNCIONES PARA ADMINISTRADOR =====
-        function updateAdminOrdersTable() {
-            const orders = DB.getAllOrders();
-            const tableBody = document.getElementById('adminOrdersTableBody');
-            
-            if (orders.length === 0) {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="9" style="text-align: center; padding: 40px;">
-                            <p style="color: #718096;">No hay pedidos en el sistema</p>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            let html = '';
-            orders.forEach(order => {
-                const statusText = order.status === 'pending' ? 'Pendiente' : 
-                                 order.status === 'ready' ? 'Listo' : 'Completado';
-                const statusClass = order.status === 'pending' ? 'status-pending' : 
-                                  order.status === 'ready' ? 'status-ready' : 'status-completed';
-                const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
-                                  order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
+        async function updateAdminOrdersTable() {
+            try {
+                const orders = await DB.getAllOrders();
+                const tableBody = document.getElementById('adminOrdersTableBody');
                 
-                html += `
-                    <tr>
-                        <td>#${order.id}</td>
-                        <td>${order.userName}</td>
-                        <td>${order.fileName}</td>
-                        <td>${order.date}</td>
-                        <td>${serviceText}</td>
-                        <td>${order.pages}</td>
-                        <td>$${order.price.toFixed(2)}</td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                        <td class="action-buttons">
-                            ${order.status === 'pending' ? 
-                                `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'ready')">Marcar como Listo</button>` : 
-                                order.status === 'ready' ?
-                                `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Completar</button>` :
-                                ''
-                            }
-                            <button class="btn-small btn-danger" onclick="deleteOrder(${order.id})">Eliminar</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
-        }
-
-        function updateUsersGrid() {
-            const users = DB.getUsers().filter(user => user.role !== 'papeleria');
-            const usersGrid = document.getElementById('usersGrid');
-            
-            if (users.length === 0) {
-                usersGrid.innerHTML = `
-                    <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
-                        <p style="color: #718096;">No hay usuarios registrados</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            users.forEach(user => {
-                const roleClass = user.role === 'estudiante' ? 'role-estudiante' : 'role-docente';
-                const roleText = user.role === 'estudiante' ? 'Estudiante' : 'Docente';
-                const userInfo = user.role === 'estudiante' ? 
-                    `<div style="font-size: 0.9rem; color: #718096;">${user.gradeGroup}</div>` :
-                    `<div style="font-size: 0.9rem; color: #718096;">${user.department}</div>`;
+                if (orders.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="9" style="text-align: center; padding: 40px;">
+                                <p style="color: #718096;">No hay pedidos en el sistema</p>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
                 
-                html += `
-                    <div class="user-card">
-                        <div class="user-header">
-                            <div class="user-name">${user.name} ${user.lastName}</div>
-                            <div class="user-role-badge ${roleClass}">${roleText}</div>
-                        </div>
-                        
-                        <div class="user-info">
-                            <div style="font-size: 0.9rem; color: #718096; margin-bottom: 5px;">@${user.username}</div>
-                            ${userInfo}
-                        </div>
-                        
-                        <div class="user-balance">Saldo: $${user.balance.toFixed(2)}</div>
-                        
-                        <div class="recharge-form">
-                            <input type="number" class="recharge-input" id="rechargeAmount_${user.id}" placeholder="Monto a recargar" min="1" step="0.01">
-                            <button class="btn-small btn-success" onclick="rechargeUserBalance(${user.id})">Recargar</button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            usersGrid.innerHTML = html;
-        }
-
-        function updateOrderStatus(orderId, status) {
-            const order = DB.updateOrderStatus(orderId, status);
-            if (order) {
-                alert(`Pedido #${orderId} actualizado a: ${status === 'ready' ? 'Listo' : 'Completado'}`);
-                updateAdminOrdersTable();
-            }
-        }
-
-        function deleteOrder(orderId) {
-            if (confirm(`¿Estás seguro de eliminar el pedido #${orderId}?`)) {
-                const db = DB.getDB();
-                const orderIndex = db.orders.findIndex(order => order.id === orderId);
-                
-                if (orderIndex !== -1) {
-                    // Reembolsar el saldo si el pedido estaba pendiente
-                    const order = db.orders[orderIndex];
-                    if (order.status === 'pending') {
-                        const user = DB.findUserById(order.userId);
-                        if (user) {
-                            const newBalance = user.balance + order.price;
-                            DB.updateUser(user.id, { balance: newBalance });
-                        }
-                    }
+                let html = '';
+                orders.forEach(order => {
+                    const statusText = order.status === 'pending' ? 'Pendiente' : 
+                                     order.status === 'ready' ? 'Listo' : 'Completado';
+                    const statusClass = order.status === 'pending' ? 'status-pending' : 
+                                      order.status === 'ready' ? 'status-ready' : 'status-completed';
+                    const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
+                                      order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
                     
-                    // Eliminar el pedido
-                    db.orders.splice(orderIndex, 1);
-                    DB.saveDB(db);
+                    html += `
+                        <tr>
+                            <td>#${order.id}</td>
+                            <td>${order.userName}</td>
+                            <td>${order.fileName}</td>
+                            <td>${order.date}</td>
+                            <td>${serviceText}</td>
+                            <td>${order.pages}</td>
+                            <td>$${order.price.toFixed(2)}</td>
+                            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                            <td class="action-buttons">
+                                ${order.status === 'pending' ? 
+                                    `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'ready')">Marcar como Listo</button>` : 
+                                    order.status === 'ready' ?
+                                    `<button class="btn-small btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Completar</button>` :
+                                    ''
+                                }
+                                <button class="btn-small btn-danger" onclick="deleteOrder(${order.id})">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tableBody.innerHTML = html;
+            } catch (error) {
+                console.error('Error al cargar pedidos:', error);
+            }
+        }
+
+        async function updateUsersGrid() {
+            try {
+                const users = await DB.getUsers();
+                const filteredUsers = users.filter(user => user.role !== 'papeleria');
+                const usersGrid = document.getElementById('usersGrid');
+                
+                if (filteredUsers.length === 0) {
+                    usersGrid.innerHTML = `
+                        <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                            <p style="color: #718096;">No hay usuarios registrados</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                filteredUsers.forEach(user => {
+                    const roleClass = user.role === 'estudiante' ? 'role-estudiante' : 'role-docente';
+                    const roleText = user.role === 'estudiante' ? 'Estudiante' : 'Docente';
+                    const userInfo = user.role === 'estudiante' ? 
+                        `<div style="font-size: 0.9rem; color: #718096;">${user.gradeGroup}</div>` :
+                        `<div style="font-size: 0.9rem; color: #718096;">${user.department}</div>`;
                     
-                    alert(`Pedido #${orderId} eliminado exitosamente`);
+                    html += `
+                        <div class="user-card">
+                            <div class="user-header">
+                                <div class="user-name">${user.name} ${user.lastName}</div>
+                                <div class="user-role-badge ${roleClass}">${roleText}</div>
+                            </div>
+                            
+                            <div class="user-info">
+                                <div style="font-size: 0.9rem; color: #718096; margin-bottom: 5px;">@${user.username}</div>
+                                ${userInfo}
+                            </div>
+                            
+                            <div class="user-balance">Saldo: $${user.balance.toFixed(2)}</div>
+                            
+                            <div class="recharge-form">
+                                <input type="number" class="recharge-input" id="rechargeAmount_${user.id}" placeholder="Monto a recargar" min="1" step="0.01">
+                                <button class="btn-small btn-success" onclick="rechargeUserBalance(${user.id})">Recargar</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                usersGrid.innerHTML = html;
+            } catch (error) {
+                console.error('Error al cargar usuarios:', error);
+            }
+        }
+
+        async function updateOrderStatus(orderId, status) {
+            try {
+                const order = await DB.updateOrderStatus(orderId, status);
+                if (order) {
+                    alert(`Pedido #${orderId} actualizado a: ${status === 'ready' ? 'Listo' : 'Completado'}`);
                     updateAdminOrdersTable();
+                }
+            } catch (error) {
+                console.error('Error al actualizar pedido:', error);
+                alert('Error al actualizar el pedido');
+            }
+        }
+
+        async function deleteOrder(orderId) {
+            if (confirm(`¿Estás seguro de eliminar el pedido #${orderId}?`)) {
+                try {
+                    const data = await DB.load();
+                    const orderIndex = data.orders.findIndex(order => order.id === orderId);
+                    
+                    if (orderIndex !== -1) {
+                        // Reembolsar el saldo si el pedido estaba pendiente
+                        const order = data.orders[orderIndex];
+                        if (order.status === 'pending') {
+                            const user = await DB.findUserById(order.userId);
+                            if (user) {
+                                const newBalance = user.balance + order.price;
+                                await DB.updateUser(user.id, { balance: newBalance });
+                            }
+                        }
+                        
+                        // Eliminar el pedido
+                        data.orders.splice(orderIndex, 1);
+                        await DB.save(data);
+                        
+                        alert(`Pedido #${orderId} eliminado exitosamente`);
+                        updateAdminOrdersTable();
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar pedido:', error);
+                    alert('Error al eliminar el pedido');
                 }
             }
         }
 
-        function rechargeUserBalance(userId) {
+        async function rechargeUserBalance(userId) {
             const input = document.getElementById(`rechargeAmount_${userId}`);
             const amount = parseFloat(input.value);
             
@@ -2341,29 +2626,38 @@
             }
             
             if (confirm(`¿Recargar $${amount.toFixed(2)} al usuario?`)) {
-                const updatedUser = DB.rechargeUserBalance(userId, amount);
-                if (updatedUser) {
-                    alert(`Se ha recargado $${amount.toFixed(2)} al usuario. Nuevo saldo: $${updatedUser.balance.toFixed(2)}`);
-                    input.value = '';
-                    updateUsersGrid();
+                try {
+                    const updatedUser = await DB.rechargeUserBalance(userId, amount);
+                    if (updatedUser) {
+                        alert(`Se ha recargado $${amount.toFixed(2)} al usuario. Nuevo saldo: $${updatedUser.balance.toFixed(2)}`);
+                        input.value = '';
+                        updateUsersGrid();
+                    }
+                } catch (error) {
+                    console.error('Error al recargar saldo:', error);
+                    alert('Error al recargar saldo');
                 }
             }
         }
 
-        function searchOrders() {
+        async function searchOrders() {
             const searchTerm = document.getElementById('searchOrders').value.toLowerCase();
-            const orders = DB.searchOrders(searchTerm);
-            
-            // Actualizar tabla con resultados filtrados
-            updateFilteredOrdersTable(orders);
+            try {
+                const orders = await DB.searchOrders(searchTerm);
+                updateFilteredOrdersTable(orders);
+            } catch (error) {
+                console.error('Error al buscar pedidos:', error);
+            }
         }
 
-        function searchUsers() {
+        async function searchUsers() {
             const searchTerm = document.getElementById('searchUsers').value.toLowerCase();
-            const users = DB.searchUsers(searchTerm).filter(user => user.role !== 'papeleria');
-            
-            // Actualizar grid con resultados filtrados
-            updateFilteredUsersGrid(users);
+            try {
+                const users = await DB.searchUsers(searchTerm);
+                updateFilteredUsersGrid(users.filter(user => user.role !== 'papeleria'));
+            } catch (error) {
+                console.error('Error al buscar usuarios:', error);
+            }
         }
 
         function updateFilteredOrdersTable(orders) {
