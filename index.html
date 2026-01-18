@@ -20,6 +20,13 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== TEMA OSCURO ===== */
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
         }
 
         .hidden {
@@ -36,6 +43,13 @@
             width: 100%;
             margin: 20px;
             min-height: 600px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .container {
+            background: #2d3748;
+            color: #e2e8f0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         /* ===== LOGO Y CABECERA ===== */
@@ -54,11 +68,21 @@
             color: #2d3748;
             font-size: 1.8rem;
             margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .school-name {
+            color: #e2e8f0;
         }
 
         .school-subtitle {
             color: #718096;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .school-subtitle {
+            color: #a0aec0;
         }
 
         /* ===== PANTALLA DE SELECCIÓN DE ROL ===== */
@@ -67,6 +91,11 @@
             color: #4a5568;
             margin-bottom: 10px;
             font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .role-selection h1 {
+            color: #e2e8f0;
         }
 
         .role-subtitle {
@@ -74,6 +103,11 @@
             color: #718096;
             margin-bottom: 30px;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .role-subtitle {
+            color: #a0aec0;
         }
 
         .role-cards {
@@ -93,10 +127,19 @@
             transition: all 0.3s ease;
         }
 
+        body.dark-theme .role-card {
+            background: #4a5568;
+            border: 2px solid #718096;
+        }
+
         .role-card:hover {
             transform: translateY(-5px);
             border-color: #667eea;
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-theme .role-card:hover {
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
         }
 
         .role-icon {
@@ -109,11 +152,21 @@
             color: #2d3748;
             font-size: 1.2rem;
             margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .role-title {
+            color: #e2e8f0;
         }
 
         .role-description {
             color: #718096;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .role-description {
+            color: #a0aec0;
         }
 
         /* ===== FORMULARIOS DE LOGIN/REGISTRO ===== */
@@ -127,6 +180,11 @@
             color: #4a5568;
             margin-bottom: 25px;
             font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .form-title {
+            color: #e2e8f0;
         }
 
         .form-group {
@@ -138,6 +196,11 @@
             color: #4a5568;
             margin-bottom: 8px;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .form-group label {
+            color: #e2e8f0;
         }
 
         .form-control {
@@ -146,7 +209,15 @@
             border: 2px solid #e2e8f0;
             border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+            background: white;
+            color: #2d3748;
+        }
+
+        body.dark-theme .form-control {
+            background: #4a5568;
+            border-color: #718096;
+            color: #e2e8f0;
         }
 
         .form-control:focus {
@@ -188,9 +259,18 @@
             margin-top: 15px;
         }
 
+        body.dark-theme .btn-secondary {
+            background: #4a5568;
+            color: #e2e8f0;
+        }
+
         .btn-secondary:hover {
             background: #e2e8f0;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        body.dark-theme .btn-secondary:hover {
+            background: #718096;
         }
 
         .btn-small {
@@ -276,10 +356,21 @@
             transition: all 0.3s;
         }
 
+        body.dark-theme .nav-item {
+            background: #4a5568;
+            border-color: #718096;
+        }
+
         .nav-item:hover, .nav-item.active {
             border-color: #667eea;
             background: white;
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-theme .nav-item:hover, 
+        body.dark-theme .nav-item.active {
+            background: #2d3748;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
         }
 
         .nav-icon {
@@ -291,6 +382,11 @@
         .nav-text {
             color: #4a5568;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .nav-text {
+            color: #e2e8f0;
         }
 
         /* ===== SECCIONES DE CONTENIDO ===== */
@@ -300,6 +396,12 @@
             padding: 25px;
             margin-bottom: 20px;
             border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .content-section {
+            background: #4a5568;
+            border-color: #718096;
         }
 
         .section-title {
@@ -309,6 +411,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .section-title {
+            color: #e2e8f0;
         }
 
         /* ===== SECCIÓN DE ENVÍO DE ARCHIVOS ===== */
@@ -322,9 +429,17 @@
             transition: all 0.3s;
         }
 
+        body.dark-theme .upload-zone {
+            border-color: #718096;
+        }
+
         .upload-zone:hover {
             border-color: #667eea;
             background: rgba(102, 126, 234, 0.05);
+        }
+
+        body.dark-theme .upload-zone:hover {
+            background: rgba(102, 126, 234, 0.1);
         }
 
         .upload-icon {
@@ -333,6 +448,64 @@
             margin-bottom: 15px;
         }
 
+        /* ===== PREVISUALIZACIÓN DE ARCHIVOS ===== */
+        .file-preview-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .file-preview {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            margin: 0 auto 15px;
+            display: none;
+        }
+
+        body.dark-theme .file-preview {
+            border-color: #718096;
+        }
+
+        .file-icon {
+            font-size: 5rem;
+            color: #667eea;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .page-count-input {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .page-count-input label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        body.dark-theme .page-count-input label {
+            color: #e2e8f0;
+        }
+
+        .page-count-input input {
+            width: 100px;
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        body.dark-theme .page-count-input input {
+            background: #4a5568;
+            border-color: #718096;
+            color: #e2e8f0;
+        }
+
+        /* ===== OPCIONES DE IMPRESIÓN ===== */
         .print-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -350,9 +523,19 @@
             transition: all 0.3s;
         }
 
+        body.dark-theme .print-option {
+            background: #4a5568;
+            border-color: #718096;
+        }
+
         .print-option:hover, .print-option.active {
             border-color: #667eea;
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-theme .print-option:hover,
+        body.dark-theme .print-option.active {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
         }
 
         /* ===== SECCIÓN DE PEDIDOS ===== */
@@ -369,11 +552,24 @@
             color: #4a5568;
             font-weight: 600;
             border-bottom: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .orders-table th {
+            background: #4a5568;
+            color: #e2e8f0;
+            border-bottom-color: #718096;
         }
 
         .orders-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .orders-table td {
+            border-bottom-color: #718096;
+            color: #e2e8f0;
         }
 
         .status-badge {
@@ -414,9 +610,18 @@
             transition: all 0.3s;
         }
 
+        body.dark-theme .user-card {
+            background: #4a5568;
+            border-color: #718096;
+        }
+
         .user-card:hover {
             border-color: #667eea;
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-theme .user-card:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
         }
 
         .user-header {
@@ -430,6 +635,11 @@
             font-weight: 600;
             color: #2d3748;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .user-name {
+            color: #e2e8f0;
         }
 
         .user-role-badge {
@@ -472,6 +682,13 @@
             border: 2px solid #e2e8f0;
             border-radius: 6px;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .recharge-input {
+            background: #4a5568;
+            border-color: #718096;
+            color: #e2e8f0;
         }
 
         /* ===== SECCIÓN DE TODOS LOS PEDIDOS (ADMIN) ===== */
@@ -489,11 +706,24 @@
             color: #4a5568;
             font-weight: 600;
             border-bottom: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .admin-orders-table th {
+            background: #4a5568;
+            color: #e2e8f0;
+            border-bottom-color: #718096;
         }
 
         .admin-orders-table td {
             padding: 10px 12px;
             border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .admin-orders-table td {
+            border-bottom-color: #718096;
+            color: #e2e8f0;
         }
 
         .action-buttons {
@@ -515,6 +745,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .setting-item {
+            background: #4a5568;
+            border-color: #718096;
         }
 
         .setting-label {
@@ -628,10 +864,22 @@
             border: 2px solid #a7f3d0;
         }
 
+        body.dark-theme .alert-success {
+            background: #064e3b;
+            color: #a7f3d0;
+            border-color: #065f46;
+        }
+
         .alert-error {
             background: #fed7d7;
             color: #c53030;
             border: 2px solid #fc8181;
+        }
+
+        body.dark-theme .alert-error {
+            background: #742a2a;
+            color: #fc8181;
+            border-color: #c53030;
         }
 
         /* ===== PAGINACIÓN ===== */
@@ -649,6 +897,12 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
+        }
+
+        body.dark-theme .page-btn {
+            background: #4a5568;
+            border-color: #718096;
+            color: #e2e8f0;
         }
 
         .page-btn:hover, .page-btn.active {
@@ -811,17 +1065,17 @@
                 <div style="margin-top: 20px;">
                     <h3>Resumen rápido:</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;" class="dark-bg">
                             <i class="fas fa-print" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
                             <h4>Impresiones</h4>
                             <p>Envía tus documentos para imprimir</p>
                         </div>
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;" class="dark-bg">
                             <i class="fas fa-history" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
                             <h4>Historial</h4>
                             <p>Revisa tus pedidos anteriores</p>
                         </div>
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e2e8f0;" class="dark-bg">
                             <i class="fas fa-cog" style="color: #667eea; font-size: 1.5rem; margin-bottom: 10px;"></i>
                             <h4>Ajustes</h4>
                             <p>Personaliza tu experiencia</p>
@@ -840,35 +1094,53 @@
                     <div class="upload-icon">
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
-                    <p><strong>Aquí se mostrará la imagen/archivo</strong></p>
-                    <p>Arrastra y suelta tu archivo aquí o haz clic para cargarlo</p>
+                    <p><strong>Arrastra y suelta tu archivo aquí o haz clic para cargarlo</strong></p>
                     <p style="font-size: 0.9rem; color: #718096; margin-top: 10px;">Formatos aceptados: PDF, DOC, DOCX, JPG, PNG</p>
                 </div>
                 <input type="file" id="fileInput" style="display: none;" accept=".pdf,.doc,.docx,.jpg,.png">
                 
-                <div id="fileInfo" class="hidden" style="margin: 20px 0; padding: 15px; background: #d1fae5; border-radius: 8px;">
+                <!-- Previsualización de archivos -->
+                <div class="file-preview-container">
+                    <img id="filePreviewImage" class="file-preview" alt="Vista previa del archivo">
+                    <div id="filePreviewIcon" class="file-icon">
+                        <i class="fas fa-file"></i>
+                    </div>
+                    <p id="fileNameDisplay" style="margin: 10px 0; font-weight: 500;"></p>
+                </div>
+                
+                <!-- Información del archivo -->
+                <div id="fileInfo" class="hidden" style="margin: 20px 0; padding: 15px; background: #d1fae5; border-radius: 8px;" class="dark-bg">
                     <p><strong>Archivo seleccionado:</strong> <span id="fileName">archivo.pdf</span></p>
+                    <p><strong>Tamaño:</strong> <span id="fileSize">0 KB</span></p>
+                    <p><strong>Tipo:</strong> <span id="fileType">PDF</span></p>
                     <button class="btn btn-small" onclick="clearFile()" style="margin-top: 10px;">Eliminar archivo</button>
+                </div>
+                
+                <!-- Número de páginas -->
+                <div class="page-count-input">
+                    <label for="pageCount">Número de páginas/hojas:</label>
+                    <input type="number" id="pageCount" min="1" value="1" class="form-control" style="max-width: 150px; margin: 0 auto;">
+                    <p style="font-size: 0.9rem; color: #718096; margin-top: 5px;">Cada página cuenta como una hoja</p>
                 </div>
                 
                 <h3 style="margin: 25px 0 15px 0;">Tipo de Servicio</h3>
                 <div class="print-options">
                     <div class="print-option active" onclick="selectPrintOption(this, 'impresion')">
                         <i class="fas fa-print" style="font-size: 1.5rem; margin-bottom: 10px; color: #667eea;"></i>
-                        <p><strong>Impresión Normal</strong></p>
-                        <p style="font-size: 0.9rem; color: #718096;">Calidad estándar</p>
+                        <p><strong>Impresión</strong></p>
+                        <p style="font-size: 0.9rem; color: #718096;">$2.00 por hoja</p>
                     </div>
                     
                     <div class="print-option" onclick="selectPrintOption(this, 'fotocopia')">
                         <i class="fas fa-copy" style="font-size: 1.5rem; margin-bottom: 10px; color: #667eea;"></i>
                         <p><strong>Fotocopia</strong></p>
-                        <p style="font-size: 0.9rem; color: #718096;">Copia simple</p>
+                        <p style="font-size: 0.9rem; color: #718096;">$1.00 por hoja</p>
                     </div>
                     
                     <div class="print-option" onclick="selectPrintOption(this, 'escaner')">
                         <i class="fas fa-scanner" style="font-size: 1.5rem; margin-bottom: 10px; color: #667eea;"></i>
                         <p><strong>Escaneo</strong></p>
-                        <p style="font-size: 0.9rem; color: #718096;">Digitalización</p>
+                        <p style="font-size: 0.9rem; color: #718096;">$2.00 por hoja</p>
                     </div>
                 </div>
                 
@@ -877,20 +1149,18 @@
                     <div class="print-option active" onclick="selectColorOption(this, 'byn')">
                         <div style="width: 30px; height: 30px; background: linear-gradient(to right, black 50%, white 50%); border-radius: 50%; margin: 0 auto 10px;"></div>
                         <p><strong>Blanco y Negro</strong></p>
-                        <p style="font-size: 0.9rem; color: #718096;">$1.00 por página</p>
                     </div>
                     
                     <div class="print-option" onclick="selectColorOption(this, 'color')">
                         <div style="width: 30px; height: 30px; background: linear-gradient(45deg, #f00, #ff0, #0f0, #00f, #f0f); border-radius: 50%; margin: 0 auto 10px;"></div>
                         <p><strong>Color</strong></p>
-                        <p style="font-size: 0.9rem; color: #718096;">$3.00 por página</p>
                     </div>
                 </div>
                 
-                <div style="background: #edf2f7; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;">
+                <div style="background: #edf2f7; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center;" class="dark-bg">
                     <h3>PRECIO ESTIMADO:</h3>
                     <div style="font-size: 2.5rem; font-weight: bold; color: #667eea; margin: 10px 0;" id="estimatedPrice">$0.00</div>
-                    <p style="color: #718096; font-size: 0.9rem;">El precio subirá o bajará dependiendo del archivo</p>
+                    <p style="color: #718096; font-size: 0.9rem;">El precio se calcula en base al tipo de servicio y número de páginas</p>
                     <button class="btn" style="margin-top: 20px;" onclick="submitPrintOrder()">Enviar Pedido</button>
                 </div>
             </div>
@@ -908,7 +1178,7 @@
                                 <th>Archivo</th>
                                 <th>Fecha</th>
                                 <th>Tipo</th>
-                                <th>Color</th>
+                                <th>Páginas</th>
                                 <th>Precio</th>
                                 <th>Estado</th>
                             </tr>
@@ -947,7 +1217,6 @@
                                 <th>Archivo</th>
                                 <th>Fecha</th>
                                 <th>Tipo</th>
-                                <th>Color</th>
                                 <th>Páginas</th>
                                 <th>Precio</th>
                                 <th>Estado</th>
@@ -1062,9 +1331,9 @@
     </div>
 
     <script>
-        // ===== BASE DE DATOS EN LOCALSTORAGE =====
+        // ===== BASE DE DATOS COMPARTIDA EN LOCALSTORAGE =====
         const DB = {
-            // Inicializar base de datos
+            // Inicializar base de datos compartida
             init: function() {
                 // Si no existe la base de datos, inicializarla
                 if (!localStorage.getItem('donfelix_db')) {
@@ -1117,7 +1386,7 @@
                                 serviceType: "impresion",
                                 color: "color",
                                 pages: 5,
-                                price: 15.00,
+                                price: 10.00,
                                 status: "ready",
                                 createdAt: new Date().toISOString()
                             },
@@ -1130,7 +1399,7 @@
                                 serviceType: "impresion",
                                 color: "byn",
                                 pages: 10,
-                                price: 10.00,
+                                price: 20.00,
                                 status: "completed",
                                 createdAt: new Date().toISOString()
                             },
@@ -1140,10 +1409,10 @@
                                 userName: "Ángela Violeta Ortiz Morales",
                                 fileName: "Calificaciones 3°1.xlsx",
                                 date: "2025-02-09",
-                                serviceType: "impresion",
+                                serviceType: "fotocopia",
                                 color: "color",
                                 pages: 3,
-                                price: 9.00,
+                                price: 3.00,
                                 status: "pending",
                                 createdAt: new Date().toISOString()
                             }
@@ -1162,7 +1431,7 @@
                                 id: 2,
                                 userId: 1,
                                 type: "payment",
-                                amount: -15.00,
+                                amount: -10.00,
                                 description: "Pago por impresión Tarea de historia.pdf",
                                 date: "2025-02-11",
                                 createdAt: new Date().toISOString()
@@ -1180,12 +1449,12 @@
                 return JSON.parse(localStorage.getItem('donfelix_db'));
             },
             
-            // Guardar cambios en la base de datos
+            // Guardar cambios en la base de datos compartida
             saveDB: function(data) {
                 localStorage.setItem('donfelix_db', JSON.stringify(data));
             },
             
-            // Obtener usuarios
+            // Obtener todos los usuarios
             getUsers: function() {
                 const db = this.getDB();
                 return db.users;
@@ -1203,7 +1472,7 @@
                 return users.find(user => user.id === userId);
             },
             
-            // Agregar nuevo usuario
+            // Agregar nuevo usuario a la base de datos compartida
             addUser: function(user) {
                 const db = this.getDB();
                 const newId = db.users.length > 0 ? Math.max(...db.users.map(u => u.id)) + 1 : 1;
@@ -1220,7 +1489,7 @@
                 return newUser;
             },
             
-            // Actualizar usuario
+            // Actualizar usuario en la base de datos compartida
             updateUser: function(userId, updates) {
                 const db = this.getDB();
                 const userIndex = db.users.findIndex(user => user.id === userId);
@@ -1239,14 +1508,14 @@
                 const user = this.findUserById(userId);
                 if (!user) return null;
                 
-                const newBalance = user.balance + amount;
+                const newBalance = user.balance + parseFloat(amount);
                 const updatedUser = this.updateUser(userId, { balance: newBalance });
                 
                 // Registrar la transacción
                 this.addTransaction({
                     userId: userId,
                     type: 'recharge',
-                    amount: amount,
+                    amount: parseFloat(amount),
                     description: 'Recarga de saldo por administrador',
                     date: new Date().toLocaleDateString()
                 });
@@ -1280,7 +1549,7 @@
                 return null;
             },
             
-            // Agregar nuevo pedido
+            // Agregar nuevo pedido a la base de datos compartida
             addOrder: function(order) {
                 const db = this.getDB();
                 const newId = db.orders.length > 0 ? Math.max(...db.orders.map(o => o.id)) + 1 : 1;
@@ -1315,6 +1584,30 @@
                 db.transactions.push(newTransaction);
                 this.saveDB(db);
                 return newTransaction;
+            },
+            
+            // Buscar usuarios por término
+            searchUsers: function(searchTerm) {
+                const users = this.getUsers();
+                const lowerSearchTerm = searchTerm.toLowerCase();
+                
+                return users.filter(user => 
+                    user.name.toLowerCase().includes(lowerSearchTerm) ||
+                    user.lastName.toLowerCase().includes(lowerSearchTerm) ||
+                    user.username.toLowerCase().includes(lowerSearchTerm) ||
+                    user.email.toLowerCase().includes(lowerSearchTerm)
+                );
+            },
+            
+            // Buscar pedidos por término
+            searchOrders: function(searchTerm) {
+                const orders = this.getAllOrders();
+                const lowerSearchTerm = searchTerm.toLowerCase();
+                
+                return orders.filter(order => 
+                    order.fileName.toLowerCase().includes(lowerSearchTerm) ||
+                    order.userName.toLowerCase().includes(lowerSearchTerm)
+                );
             }
         };
 
@@ -1324,11 +1617,15 @@
         let currentFile = null;
         let currentServiceType = "impresion";
         let currentColorType = "byn";
+        let currentPageCount = 1;
 
         // ===== INICIALIZACIÓN =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar base de datos
+            // Inicializar base de datos compartida
             DB.init();
+            
+            // Cargar tema guardado
+            loadTheme();
             
             // Verificar si hay usuario logueado (para persistencia)
             const savedUser = localStorage.getItem('currentUser');
@@ -1340,13 +1637,55 @@
             // Configurar el selector de archivos
             document.getElementById('fileInput').addEventListener('change', handleFileSelect);
             
+            // Configurar cambio en número de páginas
+            document.getElementById('pageCount').addEventListener('input', function() {
+                currentPageCount = parseInt(this.value) || 1;
+                updateEstimatedPrice();
+            });
+            
             // Configurar formularios
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('registerForm').addEventListener('submit', handleRegister);
             
+            // Configurar tema toggle
+            document.getElementById('themeToggle').addEventListener('change', toggleTheme);
+            
             // Mostrar pantalla de selección de rol por defecto
             showRoleScreen();
         });
+
+        // ===== FUNCIONALIDAD DE TEMA CLARO/OSCURO =====
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('donfelix_theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('themeToggle').checked = true;
+            }
+        }
+
+        function toggleTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle.checked) {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('donfelix_theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('donfelix_theme', 'light');
+            }
+            
+            // Actualizar elementos con clase dark-bg
+            document.querySelectorAll('.dark-bg').forEach(el => {
+                if (themeToggle.checked) {
+                    el.style.background = '#4a5568';
+                    el.style.borderColor = '#718096';
+                    el.style.color = '#e2e8f0';
+                } else {
+                    el.style.background = '';
+                    el.style.borderColor = '';
+                    el.style.color = '';
+                }
+            });
+        }
 
         // ===== MANEJO DE PANTALLAS =====
         function showRoleScreen() {
@@ -1525,7 +1864,7 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Buscar usuario en la base de datos
+            // Buscar usuario en la base de datos compartida
             const user = DB.findUserByUsername(username);
             
             if (!user) {
@@ -1570,7 +1909,7 @@
                 return;
             }
             
-            // Verificar si el usuario ya existe
+            // Verificar si el usuario ya existe en la base de datos compartida
             const existingUser = DB.findUserByUsername(username);
             if (existingUser) {
                 showAlert('registerAlert', 'El nombre de usuario ya está en uso', 'error');
@@ -1596,7 +1935,7 @@
                 userData.storeName = document.getElementById('regStoreName').value;
             }
             
-            // Agregar usuario a la base de datos
+            // Agregar usuario a la base de datos compartida
             const newUser = DB.addUser(userData);
             
             // Iniciar sesión automáticamente
@@ -1650,8 +1989,59 @@
             const file = e.target.files[0];
             if (file) {
                 currentFile = file;
+                
+                // Mostrar información del archivo
                 document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileNameDisplay').textContent = file.name;
+                
+                // Calcular tamaño del archivo
+                const fileSize = file.size / 1024; // Convertir a KB
+                document.getElementById('fileSize').textContent = fileSize < 1024 ? 
+                    `${fileSize.toFixed(2)} KB` : `${(fileSize / 1024).toFixed(2)} MB`;
+                
+                // Mostrar tipo de archivo
+                document.getElementById('fileType').textContent = file.type.split('/')[1].toUpperCase() || 'DESCONOCIDO';
+                
                 document.getElementById('fileInfo').classList.remove('hidden');
+                
+                // Mostrar vista previa
+                const previewImage = document.getElementById('filePreviewImage');
+                const fileIcon = document.getElementById('filePreviewIcon');
+                
+                if (file.type.startsWith('image/')) {
+                    // Es una imagen, mostrar vista previa
+                    previewImage.style.display = 'block';
+                    fileIcon.style.display = 'none';
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // Para imágenes, asumir 1 página
+                    currentPageCount = 1;
+                    document.getElementById('pageCount').value = 1;
+                } else {
+                    // Es un documento, mostrar icono
+                    previewImage.style.display = 'none';
+                    fileIcon.style.display = 'block';
+                    
+                    // Cambiar icono según el tipo de archivo
+                    if (file.name.toLowerCase().endsWith('.pdf')) {
+                        fileIcon.innerHTML = '<i class="fas fa-file-pdf"></i>';
+                    } else if (file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx')) {
+                        fileIcon.innerHTML = '<i class="fas fa-file-word"></i>';
+                    } else if (file.name.toLowerCase().endsWith('.xls') || file.name.toLowerCase().endsWith('.xlsx')) {
+                        fileIcon.innerHTML = '<i class="fas fa-file-excel"></i>';
+                    } else {
+                        fileIcon.innerHTML = '<i class="fas fa-file"></i>';
+                    }
+                    
+                    // Para documentos, preguntar número de páginas
+                    currentPageCount = parseInt(document.getElementById('pageCount').value) || 1;
+                }
+                
                 updateEstimatedPrice();
             }
         }
@@ -1660,6 +2050,11 @@
             currentFile = null;
             document.getElementById('fileInput').value = '';
             document.getElementById('fileInfo').classList.add('hidden');
+            document.getElementById('filePreviewImage').style.display = 'none';
+            document.getElementById('filePreviewIcon').style.display = 'none';
+            document.getElementById('fileNameDisplay').textContent = '';
+            document.getElementById('pageCount').value = 1;
+            currentPageCount = 1;
             updateEstimatedPrice();
         }
 
@@ -1678,29 +2073,25 @@
             });
             element.classList.add('active');
             currentColorType = colorType;
-            updateEstimatedPrice();
         }
 
         function updateEstimatedPrice() {
-            let price = 0;
+            let pricePerPage = 0;
             
-            // Precio base según tipo de servicio
+            // Precio por página según tipo de servicio
             if (currentServiceType === 'impresion') {
-                price = currentColorType === 'byn' ? 1.00 : 3.00;
+                pricePerPage = 2.00; // $2 por hoja
             } else if (currentServiceType === 'fotocopia') {
-                price = currentColorType === 'byn' ? 0.50 : 2.00;
+                pricePerPage = 1.00; // $1 por hoja
             } else if (currentServiceType === 'escaner') {
-                price = currentColorType === 'byn' ? 0.25 : 1.50;
+                pricePerPage = 2.00; // $2 por hoja
             }
             
-            // Si hay un archivo, simular páginas
-            if (currentFile) {
-                const simulatedPages = Math.max(1, Math.floor(currentFile.size / 10000)); // Simulación
-                price *= simulatedPages;
-            }
+            // Calcular precio total
+            const totalPrice = pricePerPage * currentPageCount;
             
-            document.getElementById('estimatedPrice').textContent = `$${price.toFixed(2)}`;
-            return price;
+            document.getElementById('estimatedPrice').textContent = `$${totalPrice.toFixed(2)}`;
+            return totalPrice;
         }
 
         function submitPrintOrder() {
@@ -1710,6 +2101,7 @@
             }
             
             const price = updateEstimatedPrice();
+            currentPageCount = parseInt(document.getElementById('pageCount').value) || 1;
             
             // Verificar saldo suficiente (solo para estudiantes y docentes)
             if (currentUser.balance < price) {
@@ -1724,12 +2116,12 @@
                 date: new Date().toLocaleDateString(),
                 serviceType: currentServiceType,
                 color: currentColorType,
-                pages: Math.max(1, Math.floor(currentFile.size / 10000)),
+                pages: currentPageCount,
                 price: price,
                 status: 'pending'
             };
             
-            // Agregar a la base de datos
+            // Agregar a la base de datos compartida
             DB.addOrder(order);
             
             // Actualizar saldo del usuario (solo para estudiantes y docentes)
@@ -1741,7 +2133,7 @@
                 userId: currentUser.id,
                 type: 'payment',
                 amount: -price,
-                description: `Pago por ${currentServiceType} de ${currentFile.name}`,
+                description: `Pago por ${currentServiceType} de ${currentFile.name} (${currentPageCount} páginas)`,
                 date: new Date().toLocaleDateString()
             });
             
@@ -1791,7 +2183,6 @@
                                   order.status === 'ready' ? 'status-ready' : 'status-completed';
                 const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
                                   order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
-                const colorText = order.color === 'byn' ? 'Blanco/Negro' : 'Color';
                 
                 html += `
                     <tr>
@@ -1799,7 +2190,7 @@
                         <td>${order.fileName}</td>
                         <td>${order.date}</td>
                         <td>${serviceText}</td>
-                        <td>${colorText}</td>
+                        <td>${order.pages}</td>
                         <td>$${order.price.toFixed(2)}</td>
                         <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                     </tr>
@@ -1817,7 +2208,7 @@
             if (orders.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="10" style="text-align: center; padding: 40px;">
+                        <td colspan="9" style="text-align: center; padding: 40px;">
                             <p style="color: #718096;">No hay pedidos en el sistema</p>
                         </td>
                     </tr>
@@ -1833,7 +2224,6 @@
                                   order.status === 'ready' ? 'status-ready' : 'status-completed';
                 const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
                                   order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
-                const colorText = order.color === 'byn' ? 'Blanco/Negro' : 'Color';
                 
                 html += `
                     <tr>
@@ -1842,7 +2232,6 @@
                         <td>${order.fileName}</td>
                         <td>${order.date}</td>
                         <td>${serviceText}</td>
-                        <td>${colorText}</td>
                         <td>${order.pages}</td>
                         <td>$${order.price.toFixed(2)}</td>
                         <td><span class="status-badge ${statusClass}">${statusText}</span></td>
@@ -1863,7 +2252,7 @@
         }
 
         function updateUsersGrid() {
-            const users = DB.getUsers().filter(user => user.role !== 'papeleria'); // No mostrar administradores
+            const users = DB.getUsers().filter(user => user.role !== 'papeleria');
             const usersGrid = document.getElementById('usersGrid');
             
             if (users.length === 0) {
@@ -1963,27 +2352,18 @@
 
         function searchOrders() {
             const searchTerm = document.getElementById('searchOrders').value.toLowerCase();
-            const orders = DB.getAllOrders();
-            const filteredOrders = orders.filter(order => 
-                order.fileName.toLowerCase().includes(searchTerm) || 
-                order.userName.toLowerCase().includes(searchTerm)
-            );
+            const orders = DB.searchOrders(searchTerm);
             
             // Actualizar tabla con resultados filtrados
-            updateFilteredOrdersTable(filteredOrders);
+            updateFilteredOrdersTable(orders);
         }
 
         function searchUsers() {
             const searchTerm = document.getElementById('searchUsers').value.toLowerCase();
-            const users = DB.getUsers().filter(user => user.role !== 'papeleria');
-            const filteredUsers = users.filter(user => 
-                user.name.toLowerCase().includes(searchTerm) || 
-                user.lastName.toLowerCase().includes(searchTerm) ||
-                user.username.toLowerCase().includes(searchTerm)
-            );
+            const users = DB.searchUsers(searchTerm).filter(user => user.role !== 'papeleria');
             
             // Actualizar grid con resultados filtrados
-            updateFilteredUsersGrid(filteredUsers);
+            updateFilteredUsersGrid(users);
         }
 
         function updateFilteredOrdersTable(orders) {
@@ -1992,7 +2372,7 @@
             if (orders.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="10" style="text-align: center; padding: 40px;">
+                        <td colspan="9" style="text-align: center; padding: 40px;">
                             <p style="color: #718096;">No se encontraron pedidos</p>
                         </td>
                     </tr>
@@ -2008,7 +2388,6 @@
                                   order.status === 'ready' ? 'status-ready' : 'status-completed';
                 const serviceText = order.serviceType === 'impresion' ? 'Impresión' :
                                   order.serviceType === 'fotocopia' ? 'Fotocopia' : 'Escaneo';
-                const colorText = order.color === 'byn' ? 'Blanco/Negro' : 'Color';
                 
                 html += `
                     <tr>
@@ -2017,7 +2396,6 @@
                         <td>${order.fileName}</td>
                         <td>${order.date}</td>
                         <td>${serviceText}</td>
-                        <td>${colorText}</td>
                         <td>${order.pages}</td>
                         <td>$${order.price.toFixed(2)}</td>
                         <td><span class="status-badge ${statusClass}">${statusText}</span></td>
