@@ -1383,238 +1383,192 @@
 
     <script>
         // ===== CONFIGURACIÓN DE BASE DE DATOS COMPARTIDA =====
-let DB_CONFIG = {
-    binId: localStorage.getItem('donfelix_jsonbin_id') || '',
-    apiKey: '$2a$10$sZX.AuSh6coT2kz3u4wqces2WArL4GA5zjqgnUas3GUp3Uock7XFO', // <-- REEMPLAZA CON TU API KEY REAL
-    isDemo: false,
-    demoData: null
-};
-
-// URL base para JSONBin.io v3
-const JSONBIN_BASE_URL = 'https://api.jsonbin.io/v3';
-
-// ===== BASE DE DATOS COMPARTIDA (JSONBin.io) =====
-const DB = {
-    // Obtener URL completa
-    getUrl() {
-        if (DB_CONFIG.binId) {
-            return `${JSONBIN_BASE_URL}/b/${DB_CONFIG.binId}`;
-        } else {
-            return `${JSONBIN_BASE_URL}/b/65f1a3c71f5677401f1b2345`; // URL de demo
-        }
-    },
-
-    // Obtener headers para las solicitudes
-    getHeaders() {
-        const headers = {
-            'Content-Type': 'application/json'
+        let DB_CONFIG = {
+            binId: localStorage.getItem('donfelix_jsonbin_id') || '',
+            apiKey: '$2a$10$D5myZ2GsmtAVF8OmBn9pWuxgCXIMLnzCAev0ujEIyTjpCJownbisK', // Esta es una API key de ejemplo
+            isDemo: false,
+            demoData: null
         };
-        
-        // Solo agregar la API Key si existe
-        if (DB_CONFIG.apiKey && DB_CONFIG.apiKey.length > 10) {
-            headers['X-Master-Key'] = DB_CONFIG.apiKey;
-        }
-        
-        return headers;
-    },
 
-    // Cargar datos desde la base de datos compartida
-    async load() {
-        try {
-            const url = `${this.getUrl()}/latest`;
-            console.log('🔍 Intentando cargar datos desde:', url);
-            console.log('🔑 Usando API Key:', DB_CONFIG.apiKey ? 'Sí' : 'No');
-            
-            const response = await fetch(url, {
-                headers: this.getHeaders(),
-                method: 'GET'
-            });
-            
-            console.log('📡 Respuesta del servidor:', response.status, response.statusText);
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('❌ Error en respuesta:', errorText);
-                
-                if (response.status === 403) {
-                    throw new Error('API Key incorrecta o sin permisos');
-                } else if (response.status === 404) {
-                    throw new Error('Bin ID no encontrado');
+        // URL base para JSONBin.io
+        const JSONBIN_BASE_URL = 'https://api.jsonbin.io/v3/b';
+
+        // ===== BASE DE DATOS COMPARTIDA (JSONBin.io) =====
+        const DB = {
+            // Obtener URL completa
+            getUrl() {
+                if (DB_CONFIG.binId) {
+                    return `${JSONBIN_BASE_URL}/${DB_CONFIG.binId}`;
                 } else {
-                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    return `${JSONBIN_BASE_URL}/65f1a3c71f5677401f1b2345`; // URL de demo
                 }
-            }
-            
-            const result = await response.json();
-            console.log('✅ Datos recibidos:', result);
-            
-            // JSONBin.io v3 devuelve los datos en "record"
-            const data = result.record;
-            
-            // Si no hay datos, devolver estructura vacía
-            if (!data || Object.keys(data).length === 0) {
-                return this.getDefaultData();
-            }
-            
-            // Asegurarse de que todos los arrays existan
-            return {
-                users: data.users || [],
-                orders: data.orders || [],
-                transactions: data.transactions || []
-            };
-            
-        } catch (error) {
-            console.error('❌ Error al cargar datos:', error.message);
-            
-            // Si hay error, usar modo demo
-            if (!DB_CONFIG.isDemo) {
-                DB_CONFIG.isDemo = true;
-                console.log('🔄 Cambiando a modo demo...');
-                
-                // Intentar cargar datos demo de localStorage
-                const demoData = localStorage.getItem('donfelix_demo_data');
-                if (demoData) {
-                    return JSON.parse(demoData);
-                }
-                
-                return this.getDefaultData();
-            }
-            
-            // Si ya estábamos en modo demo y falla, lanzar error
-            throw error;
-        }
-    },
+            },
 
-    // Guardar datos en la base de datos compartida
-    async save(data) {
-        // Si estamos en modo demo, guardar localmente
-        if (DB_CONFIG.isDemo) {
-            DB_CONFIG.demoData = data;
-            localStorage.setItem('donfelix_demo_data', JSON.stringify(data));
-            console.log('💾 Datos guardados en modo demo (local)');
-            return { success: true, isDemo: true };
-        }
-        
-        try {
-            const url = this.getUrl();
-            console.log('💾 Intentando guardar datos en:', url);
-            
-            const response = await fetch(url, {
-                method: 'PUT',
-                headers: this.getHeaders(),
-                body: JSON.stringify(data)
-            });
-            
-            console.log('📡 Respuesta del servidor:', response.status);
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('❌ Error al guardar:', errorText);
-                throw new Error(`Error ${response.status}: ${response.statusText}`);
-            }
-            
-            const result = await response.json();
-            console.log('✅ Datos guardados exitosamente');
-            return result;
-            
-        } catch (error) {
-            console.error('❌ Error al guardar datos:', error.message);
-            
-            // Cambiar a modo demo y guardar localmente
-            DB_CONFIG.isDemo = true;
-            DB_CONFIG.demoData = data;
-            localStorage.setItem('donfelix_demo_data', JSON.stringify(data));
-            console.log('🔄 Cambiando a modo demo y guardando localmente');
-            
-            return { success: true, isDemo: true };
-        }
-    },
+            // Obtener headers para las solicitudes
+            getHeaders() {
+                return {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': DB_CONFIG.apiKey,
+                    'X-Bin-Meta': 'false'
+                };
+            },
 
-    // Datos por defecto
-    getDefaultData() {
-        console.log('📂 Cargando datos por defecto...');
-        return {
-            users: [
-                {
-                    id: 1,
-                    name: "Brandon Manuel",
-                    lastName: "Cruz Hernández",
-                    email: "brandon@ejemplo.com",
-                    username: "brandon",
-                    password: "123456",
-                    role: "estudiante",
-                    gradeGroup: "3°1",
-                    balance: 150.00,
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: 2,
-                    name: "Ángela Violeta",
-                    lastName: "Ortiz Morales",
-                    email: "profesora@ejemplo.com",
-                    username: "profesora",
-                    password: "123456",
-                    role: "docente",
-                    department: "Sistemas de Información",
-                    balance: 500.00,
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: 3,
-                    name: "Don Félix",
-                    lastName: "Papelería",
-                    email: "papeleria@ejemplo.com",
-                    username: "papeleria",
-                    password: "123456",
-                    role: "papeleria",
-                    storeName: "Papelería Félix 3°I",
-                    balance: 10000.00,
-                    createdAt: new Date().toISOString()
+            // Cargar datos desde la base de datos compartida
+            async load() {
+                try {
+                    console.log('Cargando datos desde:', this.getUrl());
+                    const response = await fetch(this.getUrl(), {
+                        headers: this.getHeaders()
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Si no hay datos, devolver estructura vacía
+                    if (!data || Object.keys(data).length === 0) {
+                        return this.getDefaultData();
+                    }
+                    
+                    // Asegurarse de que todos los arrays existan
+                    return {
+                        users: data.users || [],
+                        orders: data.orders || [],
+                        transactions: data.transactions || []
+                    };
+                    
+                } catch (error) {
+                    console.error('Error al cargar datos:', error);
+                    
+                    // Si hay error, intentar cargar datos de demo
+                    if (!DB_CONFIG.isDemo) {
+                        DB_CONFIG.isDemo = true;
+                        return this.getDefaultData();
+                    }
+                    
+                    throw error;
                 }
-            ],
-            orders: [
-                {
-                    id: 1,
-                    userId: 1,
-                    userName: "Brandon Manuel Cruz Hernández",
-                    fileName: "Tarea de historia.pdf",
-                    date: new Date().toLocaleDateString(),
-                    serviceType: "impresion",
-                    color: "color",
-                    pages: 5,
-                    price: 10.00,
-                    status: "ready",
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: 2,
-                    userId: 1,
-                    userName: "Brandon Manuel Cruz Hernández",
-                    fileName: "Proyecto de matemáticas.docx",
-                    date: new Date().toLocaleDateString(),
-                    serviceType: "impresion",
-                    color: "byn",
-                    pages: 10,
-                    price: 20.00,
-                    status: "completed",
-                    createdAt: new Date().toISOString()
+            },
+
+            // Guardar datos en la base de datos compartida
+            async save(data) {
+                try {
+                    console.log('Guardando datos en:', this.getUrl());
+                    const response = await fetch(this.getUrl(), {
+                        method: 'PUT',
+                        headers: this.getHeaders(),
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    console.log('Datos guardados exitosamente:', result);
+                    return result;
+                    
+                } catch (error) {
+                    console.error('Error al guardar datos:', error);
+                    
+                    // Si falla, guardar en modo demo (local)
+                    if (!DB_CONFIG.isDemo) {
+                        DB_CONFIG.isDemo = true;
+                        DB_CONFIG.demoData = data;
+                        localStorage.setItem('donfelix_demo_data', JSON.stringify(data));
+                        console.log('Datos guardados en modo demo (local)');
+                    }
+                    
+                    throw error;
                 }
-            ],
-            transactions: [
-                {
-                    id: 1,
-                    userId: 1,
-                    type: "recharge",
-                    amount: 100.00,
-                    description: "Recarga inicial",
-                    date: new Date().toLocaleDateString(),
-                    createdAt: new Date().toISOString()
-                }
-            ]
-        };
-    },
-    
-    // Inicializar base de datos
+            },
+
+            // Datos por defecto
+            getDefaultData() {
+                return {
+                    users: [
+                        {
+                            id: 1,
+                            name: "Brandon Manuel",
+                            lastName: "Cruz Hernández",
+                            email: "brandon@ejemplo.com",
+                            username: "brandon",
+                            password: "123456",
+                            role: "estudiante",
+                            gradeGroup: "3°1",
+                            balance: 150.00,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 2,
+                            name: "Ángela Violeta",
+                            lastName: "Ortiz Morales",
+                            email: "profesora@ejemplo.com",
+                            username: "profesora",
+                            password: "123456",
+                            role: "docente",
+                            department: "Sistemas de Información",
+                            balance: 500.00,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 3,
+                            name: "Don Félix",
+                            lastName: "Papelería",
+                            email: "papeleria@ejemplo.com",
+                            username: "papeleria",
+                            password: "123456",
+                            role: "papeleria",
+                            storeName: "Papelería Félix 3°I",
+                            balance: 10000.00,
+                            createdAt: new Date().toISOString()
+                        }
+                    ],
+                    orders: [
+                        {
+                            id: 1,
+                            userId: 1,
+                            userName: "Brandon Manuel Cruz Hernández",
+                            fileName: "Tarea de historia.pdf",
+                            date: new Date().toLocaleDateString(),
+                            serviceType: "impresion",
+                            color: "color",
+                            pages: 5,
+                            price: 10.00,
+                            status: "ready",
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 2,
+                            userId: 1,
+                            userName: "Brandon Manuel Cruz Hernández",
+                            fileName: "Proyecto de matemáticas.docx",
+                            date: new Date().toLocaleDateString(),
+                            serviceType: "impresion",
+                            color: "byn",
+                            pages: 10,
+                            price: 20.00,
+                            status: "completed",
+                            createdAt: new Date().toISOString()
+                        }
+                    ],
+                    transactions: [
+                        {
+                            id: 1,
+                            userId: 1,
+                            type: "recharge",
+                            amount: 100.00,
+                            description: "Recarga inicial",
+                            date: new Date().toLocaleDateString(),
+                            createdAt: new Date().toISOString()
+                        }
+                    ]
+                };
+            },
+
+            // Inicializar base de datos
             async init() {
                 console.log('Inicializando base de datos...');
                 
